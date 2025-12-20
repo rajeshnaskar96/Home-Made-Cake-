@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Made Cake — by Keya Naskar (Suk Pukuria, Beonta, Hatisala, South 24 Pgs., 743502)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #b94e6b;
+      --secondary-color: #7a2b3a;
+      --accent-color: #f6c1a9;
+      --accent-light: #fde9df;
+      --bg-color: #fff8f6;
+      --card-bg: #ffffff;
+      --text-dark: #3b2b2b;
+      --text-muted: #7a6f6f;
+      --border-color: #f0dede;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+      --shadow-md: 0 6px 16px rgba(0,0,0,.08);
+      --shadow-lg: 0 10px 28px rgba(0,0,0,.12);
+      --gradient-primary: linear-gradient(135deg, #f49ca4, #b94e6b);
+      --gradient-accent: linear-gradient(135deg, #f6c1a9, #f2a97d);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-dark);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    header {
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 10px 0;
+    }
+    .header-content { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo { 
+      width: 50px; height: 50px; border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700;
+      font-family: 'Playfair Display', serif; font-size: 18px;
+    }
+    .brand-text h1 {
+      font-family: 'Playfair Display', serif; font-size: 20px; margin: 0;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .brand-text p { font-size: 12px; margin: 0; color: var(--text-muted); }
+    nav { display: flex; gap: 5px; align-items: center; }
+    .nav-btn {
+      background: transparent; border: none; padding: 8px 15px;
+      border-radius: 8px; cursor: pointer; font-weight: 600;
+      color: var(--text-dark); font-size: 14px;
+      transition: all 0.3s ease; white-space: nowrap;
+    }
+    .nav-btn:hover, .nav-btn.active { background: var(--gradient-primary); color: #fff; }
+    .nav-btn.btn-accent { background: var(--gradient-accent); color: var(--text-dark); }
+    .nav-btn.btn-accent:hover { background: var(--accent-color); color: var(--text-dark); }
+    .hamburger { display: none; flex-direction: column; justify-content: space-around; width: 30px; height: 25px; background: transparent; border: none; cursor: pointer; padding: 0; }
+    .hamburger .bar { width: 100%; height: 3px; background: var(--primary-color); border-radius: 10px; transition: all 0.3s ease; }
+    main { flex: 1; padding: 30px 0; }
+    .page { display: none; }
+    .page.active { display: block; animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .shop-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+    .section-title {
+      font-family: 'Playfair Display', serif; color: var(--secondary-color);
+      position: relative; padding-bottom: 10px;
+    }
+    .section-title::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 60px; height: 3px; background: var(--gradient-primary); border-radius: 3px;
+    }
+    .subsection-title {
+      font-family: 'Playfair Display', serif; font-size: 22px;
+      color: var(--secondary-color); margin-bottom: 20px;
+      padding-bottom: 5px; border-bottom: 2px solid var(--border-color);
+    }
+    .filter-options { display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 15px; border: 1px solid var(--border-color);
+      background: white; border-radius: 20px; cursor: pointer;
+      font-size: 14px; transition: all 0.3s ease;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--gradient-primary); color: white; border-color: var(--primary-color);
+    }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+    .product-card {
+      background: var(--card-bg); border-radius: 12px;
+      overflow: hidden; box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease; position: relative;
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .product-badge {
+      position: absolute; top: 10px; left: 10px;
+      background: var(--gradient-accent); color: var(--text-dark);
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 12px; font-weight: 600; z-index: 2;
+    }
+    .product-image { width: 100%; height: 200px; object-fit: cover; transition: transform 0.5s ease; }
+    .product-card:hover .product-image { transform: scale(1.05); }
+    .product-info { padding: 15px; }
+    .product-title { font-weight: 700; margin-bottom: 5px; font-size: 16px; }
+    .product-id { color: var(--text-muted); font-size: 12px; margin-bottom: 8px; }
+    .product-description {
+      font-size: 14px; color: var(--text-muted); margin-bottom: 10px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .product-price { font-weight: 700; color: var(--primary-color); margin: 10px 0; font-size: 18px; }
+    .product-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .btn {
+      padding: 10px 18px; border-radius: 8px; border: none; cursor: pointer;
+      background: var(--gradient-primary); color: #fff; font-weight: 600;
+      display: inline-flex; gap: 8px; align-items: center;
+      transition: all 0.3s ease; font-size: 14px;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: #fff; border: 1px solid var(--border-color); color: var(--text-dark); }
+    .btn-accent { background: var(--gradient-accent); }
+    .btn-buy { background: #4caf50; flex: 1; justify-content: center; }
+    .modal-backdrop {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5); display: none;
+      justify-content: center; align-items: center;
+      z-index: 2000; padding: 20px;
+    }
+    .modal {
+      background: white; border-radius: 12px; padding: 25px;
+      max-width: 500px; width: 100%; max-height: 90vh;
+      overflow-y: auto; box-shadow: var(--shadow-lg); position: relative;
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .modal-title { font-family: 'Playfair Display', serif; color: var(--secondary-color); font-size: 24px; }
+    .close-modal { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-muted); transition: color 0.3s ease; }
+    .close-modal:hover { color: var(--primary-color); }
+    .payment-options { display: flex; gap: 10px; margin-bottom: 20px; }
+    .payment-option {
+      flex: 1; padding: 15px; border: 2px solid var(--border-color);
+      border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.3s ease;
+    }
+    .payment-option:hover, .payment-option.selected { border-color: var(--primary-color); background: var(--bg-color); }
+    .payment-option i { font-size: 24px; margin-bottom: 8px; color: var(--text-muted); }
+    .payment-option.selected i { color: var(--primary-color); }
+    .payment-option img { height: 24px; margin-bottom: 8px; opacity: 0.6; }
+    .payment-option.selected img { opacity: 1; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-muted); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 12px 15px; border: 1px solid var(--border-color);
+      border-radius: 8px; font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(185, 78, 107, 0.1);
+    }
+    .auth-toggle { text-align: center; margin-top: 15px; font-size: 14px; }
+    .auth-toggle a { color: var(--primary-color); text-decoration: none; font-weight: 600; cursor: pointer; }
+    .auth-toggle a:hover { text-decoration: underline; }
+    .form-row { display: flex; gap: 15px; }
+    .form-row .form-group { flex: 1; }
+    #info-modal-content { padding: 10px; }
+    #info-modal-image { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 20px; }
+    #info-modal-details { line-height: 1.8; }
+    #info-modal-details p { margin-bottom: 10px; }
+    #info-modal-details .info-label { font-weight: 600; color: var(--text-muted); margin-right: 8px; }
+    .orders-container { display: flex; flex-direction: column; gap: 20px; }
+    .table-wrapper {
+        background: var(--card-bg); border-radius: 8px;
+        box-shadow: var(--shadow-sm); overflow-x: auto; margin-bottom: 30px;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    table th, table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    table th { font-size: 12px; text-transform: uppercase; color: var(--text-muted); background: var(--bg-color); }
+    table tr:last-child td { border-bottom: none; }
+    .order-card { background: var(--card-bg); border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm); }
+    .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+    .order-id { font-weight: 700; color: var(--primary-color); }
+    .order-date { color: var(--text-muted); font-size: 14px; }
+    .order-status { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: capitalize; }
+    .status-processing { background: #fff4e5; color: #ffa500; }
+    .status-completed { background: #e7f6ed; color: #0c9d57; }
+    .status-pending { background: #e7f0ff; color: #3d6bff; }
+    .order-details { display: grid; grid-template-columns: 80px 1fr; gap: 15px; margin-bottom: 15px; }
+    .order-image { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
+    .order-product-title { font-weight: 700; margin-bottom: 5px; }
+    .order-price { color: var(--primary-color); font-weight: 700; margin-bottom: 5px; }
+    .order-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--border-color); flex-wrap: wrap; gap: 10px; }
+    .order-total { font-weight: 700; font-size: 18px; }
+    .compact-hero { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; flex-wrap: wrap; gap: 20px; }
+    .hero-text { flex: 1; min-width: 300px; }
+    .hero-text h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--secondary-color); margin-bottom: 10px; }
+    .hero-text p { color: var(--text-muted); margin-bottom: 15px; }
+    .hero-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cake-slider-container { flex: 1; min-width: 300px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: var(--shadow-md); height: 200px; }
+    .cake-slider { display: flex; transition: transform 0.5s ease; height: 100%; }
+    .cake-slide { min-width: 100%; height: 100%; position: relative; }
+    .cake-slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.6); color: white; padding: 8px 15px; font-size: 14px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
+    .stat-card { text-align: center; padding: 30px 20px; }
+    .stat-number { font-size: 42px; font-weight: 700; color: var(--primary-color); margin: 10px 0; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    footer { background: var(--secondary-color); color: white; padding: 40px 0 20px; margin-top: 50px; }
+    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px; }
+    .footer-column h3 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 20px; position: relative; padding-bottom: 10px; }
+    .footer-column h3::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: var(--accent-color); }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 12px; }
+    .footer-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; gap: 10px; }
+    .footer-links a:hover { color: var(--accent-color); }
+    .footer-contact-info { display: flex; flex-direction: column; gap: 15px; }
+    .contact-item { display: flex; align-items: center; gap: 12px; }
+    .contact-item i { color: var(--accent-color); font-size: 18px; }
+    .social-links { display: flex; gap: 15px; margin-top: 20px; }
+    .social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: white; transition: all 0.3s ease; }
+    .social-links a:hover { background: var(--accent-color); transform: translateY(-3px); }
+    .copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; color: rgba(255, 255, 255, 0.7); }
+    .toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: var(--primary-color); color: white; padding: 12px 25px;
+      border-radius: 8px; box-shadow: var(--shadow-lg);
+      z-index: 3000; display: none;
+      animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
+    }
+    @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+    @keyframes toastOut { from { opacity: 1; transform: translate(-50%, 0); } to { opacity: 0; transform: translate(-50%, 20px); } }
+    .floating-btn {
+      position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px;
+      border-radius: 50%; background: var(--gradient-primary); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-lg); cursor: pointer; z-index: 999;
+      transition: all 0.3s ease;
+    }
+    .floating-btn:hover { transform: scale(1.1); }
+    .cart-count {
+      position: absolute; top: -5px; right: -5px;
+      background: var(--secondary-color); color: white;
+      border-radius: 50%; width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--card-bg); flex-direction: column; padding: 10px; box-shadow: var(--shadow-md); }
+      nav.active { display: flex; }
+      .nav-btn { width: 100%; text-align: left; padding: 12px 20px; }
+      .shop-header { flex-direction: column; align-items: flex-start; }
+      .filter-options { width: 100%; overflow-x: auto; padding-bottom: 10px; }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+      .form-row { flex-direction: column; gap: 0; }
+      .footer-content { grid-template-columns: 1fr; }
+      .compact-hero { flex-direction: column; }
+      .hero-text, .cake-slider-container { width: 100%; }
+      .form-grid, .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .brand-text h1 { font-size: 18px; }
+      .logo { width: 45px; height: 45px; font-size: 16px; }
+      .section-title { font-size: 24px; }
+      .btn { padding: 8px 14px; font-size: 13px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .modal { padding: 20px 15px; }
+      .payment-options { flex-direction: column; }
+      .stat-number { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="brand">
+        <div class="logo">HM</div>
+        <div class="brand-text">
+          <h1>Home Made Cake</h1>
+          <p>by Keya Naskar · Suk Pukuria, Beonta, Hatisala, South 24 Pgs., 743502· +91 9600000000</p>
+        </div>
+      </div>
+      <nav id="main-nav">
+        <button class="nav-btn" data-page="home">Home</button>
+        <button class="nav-btn" data-page="shop">Shop</button>
+        <button class="nav-btn" data-page="custom">Custom Cake</button>
+        <button class="nav-btn" data-page="orders">My Orders</button>
+        <button class="nav-btn" data-page="contact">Contact</button>
+        <button class="nav-btn" id="login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+        <button class="nav-btn btn-accent" id="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</button>
+      </nav>
+      <button class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="home-page" class="page active">
+      <div class="compact-hero">
+        <div class="hero-text">
+          <h2>Home Made Cakes — Fresh. Hygienic. Delightful.</h2>
+          <p>Celebrate every moment with our handcrafted cakes. Shop ready-made or order a custom design.</p>
+          <div class="hero-buttons">
+            <button class="btn" id="shop-now-btn"><i class="fas fa-store"></i> Shop Now</button>
+            <button class="btn btn-accent" id="custom-order-btn"><i class="fas fa-birthday-cake"></i> Custom Order</button>
+          </div>
+        </div>
+        <div class="cake-slider-container">
+          <div class="cake-slider" id="home-cake-slider">
+            <div class="cake-slide">
+              <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Chocolate Cake">
+              <div class="slide-caption">Chocolate Decadence</div>
+            </div>
+            <div class="cake-slide">
+              <img src="https://images.unsplash.com/photo-1519766580219-0e797801d36b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Wedding Cake">
+              <div class="slide-caption">Elegant Wedding Tier</div>
+            </div>
+            <div class="cake-slide">
+              <img src="https://images.unsplash.com/photo-1562440102-87693d0a1d4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Fruit Tart">
+              <div class="slide-caption">Fresh Fruit Tart</div>
+            </div>
+            <div class="cake-slide">
+              <img src="https://images.unsplash.com/photo-1606983360176-a7114893e8c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Birthday Cake">
+              <div class="slide-caption">Funfetti Birthday Bash</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="featured-section">
+        <h2 class="section-title">Our Most Popular Cakes</h2>
+        <div class="products-grid" id="featured-products-grid">
+          </div>
+      </div>
+    </section>
+
+    <section id="shop-page" class="page">
+      <div class="shop-header">
+        <h2 class="section-title">Our Cake Collection</h2>
+        <div class="filter-options" id="filter-options-container">
+          </div>
+      </div>
+      <div class="products-grid" id="products-grid">
+        </div>
+    </section>
+
+    <section id="custom-page" class="page">
+      <h2 class="section-title">Order a Custom Cake</h2>
+      <div class="form-grid">
+        <div class="stat-card card">
+          <i class="fas fa-birthday-cake" style="font-size: 40px; color: var(--accent-color);"></i>
+          <div class="stat-number" id="custom-order-count">0</div>
+          <p>Custom Orders Received</p>
+        </div>
+        <form class="card" id="custom-order-form">
+          <div class="form-group">
+            <label for="customer-name">Your Name</label>
+            <input type="text" id="customer-name" required>
+          </div>
+          <div class="form-group">
+            <label for="customer-phone">Phone Number</label>
+            <input type="tel" id="customer-phone" required>
+          </div>
+          <div class="form-group">
+            <label for="cake-type">Cake Type</label>
+            <select id="cake-type" class="form-group-input">
+              <option>Birthday Cake</option>
+              <option>Wedding Cake</option>
+              <option>Anniversary Cake</option>
+              <option>Special Occasion Cake</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cake-size">Cake Size</label>
+            <select id="cake-size" class="form-group-input">
+              <option>6 inches (Serves 8-10)</option>
+              <option>8 inches (Serves 12-16)</option>
+              <option>10 inches (Serves 20-25)</option>
+              <option>12 inches (Serves 30-35)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cake-flavor">Cake Flavor</label>
+            <select id="cake-flavor" class="form-group-input">
+              <option>Vanilla</option>
+              <option>Chocolate</option>
+              <option>Red Velvet</option>
+              <option>Lemon</option>
+              <option>Carrot</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cake-filling">Filling</label>
+            <select id="cake-filling" class="form-group-input">
+              <option>Buttercream</option>
+              <option>Chocolate Ganache</option>
+              <option>Fruit Preserves</option>
+              <option>Cream Cheese</option>
+              <option>Whipped Cream</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cake-design">Design Details</label>
+            <textarea id="cake-design" rows="7" placeholder="Describe your design ideas or attach reference images" class="form-group-input"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="delivery-date">Delivery Date</label>
+            <input type="date" id="delivery-date" required class="form-group-input">
+          </div>
+          <button type="submit" class="btn"><i class="fas fa-check-circle"></i> Submit Order</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="orders-page" class="page">
+      <h2 class="section-title">My Orders</h2>
+      <h3 class="subsection-title">My Collection Orders</h3>
+      <div class="orders-container" id="shop-orders-container">
+        </div>
+      <h3 class="subsection-title" style="margin-top: 40px;">My Custom Cakes</h3>
+      <div class="table-wrapper">
+        <table id="my-custom-orders-table">
+          <thead>
+            <tr> <th>Order ID</th> <th>Date</th> <th>Type</th> <th>Status</th> <th>Action</th> </tr>
+          </thead>
+          <tbody id="custom-orders-container">
+            </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="contact-page" class="page">
+      <h2 class="section-title">Contact Us</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Get in Touch</h3>
+          <p>Have questions about our cakes or want to place a custom order? Reach out to us!</p>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div> <h4>Address</h4> <p>Suk Pukuria, Beonta, K.L.C. (now Hatisala), South 24 Pgs., 743502</p> </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div> <h4>Phone</h4> <p><a href="tel:+919600000000">+91 9600000000</a></p> </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div> <h4>Email</h4> <p><a href="mailto:adminhomemade.@gmail.com">adminhomemade.@gmail.com</a></p> </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-clock"></i></div>
+            <div> <h4>Hours</h4> <p>Monday-Saturday: 9AM - 8PM<br>Sunday: 10AM - 6PM</p> </div>
+          </div>
+        </div>
+        <form class="card" id="contact-form">
+          <div class="form-group">
+            <label for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" required class="form-group-input">
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email Address</label>
+            <input type="email" id="contact-email" required class="form-group-input">
+          </div>
+          <div class="form-group">
+            <label for="contact-phone">Phone Number</label>
+            <input type="tel" id="contact-phone" class="form-group-input">
+          </div>
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" required class="form-group-input">
+          </div>
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" rows="4" required class="form-group-input"></textarea>
+          </div>
+          <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="payment-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Complete Your Purchase</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="product-summary">
+        <h4 id="payment-product-name">Product Name</h4>
+        <div class="product-price">₹ <span id="payment-product-price">0</span></div>
+        <input type="hidden" id="payment-product-image" value="">
+      </div>
+      <div class="form-group">
+        <label for="payment-customer-name">Your Name</label>
+        <input type="text" id="payment-customer-name" required>
+      </div>
+      <div class="form-group">
+        <label for="payment-customer-phone">Phone Number</label>
+        <input type="tel" id="payment-customer-phone" required>
+      </div>
+      <div class="payment-options">
+        <div class="payment-option selected" data-method="card"> <i class="fas fa-credit-card"></i> <div>Credit Card</div> </div>
+        <div class="payment-option" data-method="upi"> <i class="fas fa-mobile-alt"></i> <div>Pay with UPI</div> </div>
+        <div class="payment-option" data-method="cod"> <i class="fas fa-money-bill-wave"></i> <div>Cash on Delivery</div> </div>
+      </div>
+      <form id="payment-form">
+        <div id="card-payment-fields">
+          <div class="form-group"> <label for="card-name">Name on Card</label> <input type="text" id="card-name" placeholder="John Doe" required> </div>
+          <div class="form-group"> <label for="card-number">Card Number</label> <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required> </div>
+          <div class="form-row">
+            <div class="form-group"> <label for="card-expiry">Expiry Date</label> <input type="text" id="card-expiry" placeholder="MM/YY" required> </div>
+            <div class="form-group"> <label for="card-cvc">CVC</label> <input type="text" id="card-cvc" placeholder="123" required> </div>
+          </div>
+          <div class="form-group"> <label for="billing-address">Billing Address</label> <input type="text" id="billing-address" placeholder="Your full address" required> </div>
+        </div>
+        <div id="upi-payment-fields" style="display: none; text-align: center; padding: 20px 0;">
+          <i class="fas fa-qrcode" style="font-size: 80px; color: var(--text-muted); margin-bottom: 15px;"></i>
+          <p>Scan the QR code or pay using your UPI app.</p>
+          <p style="font-weight: 600; color: var(--primary-color);">pay@homemadecake</p>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;"> <i class="fas fa-lock"></i> <span id="pay-btn-text">Pay Now</span> </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="confirmation-modal">
+    <div class="modal">
+      <div class="modal-header"> <h3 class="modal-title">Order Confirmed!</h3> <button class="close-modal">&times;</button> </div>
+      <div style="text-align: center; padding: 20px 0;">
+        <i class="fas fa-check-circle" style="font-size: 60px; color: #4caf50;"></i>
+        <h4 style="margin: 15px 0 10px;">Thank you for your order!</h4>
+        <p>Your order <span id="order-id-confirm" style="font-weight: 700;">#SB12345</span> has been confirmed.</p>
+      </div>
+      <div class="order-summary">
+        <h4>Order Summary</h4>
+        <div style="display: flex; justify-content: space-between; margin: 10px 0;"> <span>Product:</span> <span id="confirm-product-name"></span> </div>
+        <div style="display: flex; justify-content: space-between; margin: 10px 0;"> <span>Price:</span> <span>₹ <span id="confirm-product-price"></span></span> </div>
+        <div style="display: flex; justify-content: space-between; margin: 10px 0; font-weight: 700;"> <span>Total:</span> <span>₹ <span id="confirm-total-price"></span></span> </div>
+      </div>
+      <button class="btn" style="width: 100%; margin-top: 20px;" id="continue-shopping-btn"> <i class="fas fa-shopping-bag"></i> Continue Shopping </button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="info-modal">
+    <div class="modal">
+      <div class="modal-header"> <h3 class="modal-title" id="info-modal-title">Product Details</h3> <button class="close-modal">&times;</button> </div>
+      <div id="info-modal-content"> <img id="info-modal-image" src="" alt="Product Image"> <div id="info-modal-details"> </div> </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="auth-modal">
+    <div class="modal">
+      <div class="modal-header"> <h3 class="modal-title" id="auth-modal-title">Login</h3> <button class="close-modal">&times;</button> </div>
+      <form id="login-form">
+        <div class="form-group"> <label for="login-email">Email Address</label> <input type="email" id="login-email" required> </div>
+        <div class="form-group"> <label for="login-password">Password</label> <input type="password" id="login-password" required> </div>
+        <button type="submit" class="btn" style="width: 100%;"><i class="fas fa-sign-in-alt"></i> Login</button>
+        <p class="auth-toggle"> Don't have an account? <a id="show-signup">Sign Up</a> </p>
+      </form>
+      <form id="signup-form" style="display: none;">
+        <div class="form-group"> <label for="signup-name">Full Name</label> <input type="text" id="signup-name" required> </div>
+        <div class="form-group"> <label for="signup-email">Email Address</label> <input type="email" id="signup-email" required> </div>
+        <div class="form-group"> <label for="signup-password">Password</label> <input type="password" id="signup-password" required> </div>
+        <button type="submit" class="btn" style="width: 100%;"><i class="fas fa-user-plus"></i> Create Account</button>
+        <p class="auth-toggle"> Already have an account? <a id="show-login">Login</a> </p>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="floating-btn" id="cart-btn"> <i class="fas fa-shopping-cart"></i> <div class="cart-count">0</div> </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Home Made Cake</h3>
+          <p>Creating delicious, handcrafted cakes for all your special occasions. Made with love and the finest ingredients.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#" data-page="home"><i class="fas fa-chevron-right"></i> Home</a></li>
+            <li><a href="#" data-page="shop"><i class="fas fa-chevron-right"></i> Shop</a></li>
+            <li><a href="#" data-page="custom"><i class="fas fa-chevron-right"></i> Custom Cakes</a></li>
+            <li><a href="#" data-page="orders"><i class="fas fa-chevron-right"></i> My Orders</a></li>
+            <li><a href="#" data-page="contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact Info</h3>
+          <div class="footer-contact-info">
+            <div class="contact-item"> <i class="fas fa-map-marker-alt"></i> <span>Suk Pukuria, Beonta, K.L.C. (now Hatisala), South 24 Pgs., 743502</span> </div>
+            <div class="contact-item"> <i class="fas fa-phone"></i> <span><a href="tel:+919600000000" style="color: inherit; text-decoration: none;">+91 9600000000</a></span> </div>
+            <div class="contact-item"> <i class="fas fa-envelope"></i> <span><a href="mailto:adminhomemade.@gmail.com" style="color: inherit; text-decoration: none;">adminhomemade.@gmail.com</a></span> </div>
+            <div class="contact-item"> <i class="fas fa-clock"></i> <span>Open: 9AM - 8PM (Mon-Sat)</span> </div>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter for updates on new flavors and special offers.</p>
+          <form>
+            <div class="form-group"> <input type="email" placeholder="Your Email Address" required> </div>
+            <button type="submit" class="btn" style="width: 100%;">Subscribe Now</button>
+          </form>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>© 2025 Home Made Cake. by Keya Naskar — Suk Pukuria, Beonta, K.L.C. (now Hatisala), South 24 Pgs., 743502 · Email: adminhomemade.@gmail.com · Mobile: +91 9600000000.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Use localStorage to share data between customer site and admin dashboard
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      // --- DATA MANAGEMENT (Linked to Admin Dashboard) ---
+      function loadProducts() {
+        // Load products from localStorage (set by admin dashboard)
+        const storedProducts = localStorage.getItem('hmc_products');
+        if (storedProducts) {
+          return JSON.parse(storedProducts);
+        }
+        
+        // Default products if none exist in localStorage
+        return [
+          { id: 'B001', name: 'Classic Vanilla Bean', price: 799, category: 'birthday', badge: 'Best Seller', imageUrl: 'https://placehold.co/600x400/b94e6b/ffffff?text=Vanilla+Bean' , description: 'Light vanilla sponge layered with smooth vanilla buttercream.'},
+          { id: 'C002', name: 'Chocolate Decadence', price: 950, category: 'birthday', badge: 'New', imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80', description: 'Rich dark chocolate cake with chocolate ganache and shavings.'},
+          { id: 'W003', name: 'Elegant Rose Tier', price: 2999, category: 'wedding', badge: 'Premium', imageUrl: 'https://images.unsplash.com/photo-1519766580219-0e797801d36b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80', description: 'Two-tier almond cake with floral frosting, perfect for any ceremony.'},
+          { id: 'S004', name: 'Mango Delight', price: 850, category: 'seasonal', badge: 'Seasonal', imageUrl: 'https://placehold.co/600x400/f6c1a9/3b2b2b?text=Mango+Delight', description: 'Fresh mango mousse layered on a light sponge, available in summer.'},
+          { id: 'CC05', name: 'Red Velvet Cupcakes (6)', price: 450, category: 'cupcakes', badge: '', imageUrl: 'https://placehold.co/600x400/7a2b3a/ffffff?text=Red+Velvet+Cupcakes', description: 'Moist red velvet cupcakes topped with cream cheese frosting.'},
+          { id: 'B006', name: 'Black Forest Dream', price: 899, category: 'birthday', badge: '', imageUrl: 'https://placehold.co/600x400/3b2b2b/fde9df?text=Black+Forest', description: 'Chocolate sponge, whipped cream, and rich cherry filling.'},
+        ];
+      }
+      
+      function loadCategories() {
+        // Load categories from localStorage (set by admin dashboard)
+        const storedCategories = localStorage.getItem('hmc_categories');
+        if (storedCategories) {
+          return JSON.parse(storedCategories);
+        }
+        
+        // Default categories if none exist in localStorage
+        return [
+          { id: 'birthday', name: 'Birthday' },
+          { id: 'wedding', name: 'Wedding' },
+          { id: 'seasonal', name: 'Seasonal' },
+          { id: 'cupcakes', name: 'Cupcakes' }
+        ];
+      }
+      
+      // Store for dynamic data
+      let allProducts = [];
+      let allCategories = [];
+
+      // --- INITIALIZATION ---
+      updateCartCount();
+      initNavigation();
+      loadShop();
+      initCustomOrders();
+      initContactForm();
+      initPaymentModal();
+      initViewDetails();
+      initSlider();
+      initAuth();
+      showPage('home');
+
+      // --- NAVIGATION ---
+      function initNavigation() {
+        const navButtons = document.querySelectorAll('.nav-btn[data-page]');
+        const footerLinks = document.querySelectorAll('.footer-links a[data-page]');
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('main-nav');
+        navButtons.forEach(button => { button.addEventListener('click', () => showPage(button.getAttribute('data-page'))); });
+        footerLinks.forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); showPage(link.getAttribute('data-page')); }); });
+        document.getElementById('shop-now-btn').addEventListener('click', () => showPage('shop'));
+        document.getElementById('custom-order-btn').addEventListener('click', () => showPage('custom'));
+        hamburger.addEventListener('click', () => {
+          nav.classList.toggle('active');
+          const bars = document.querySelectorAll('.hamburger .bar');
+          if (nav.classList.contains('active')) {
+            bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            bars[1].style.opacity = '0';
+            bars[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+          } else {
+            bars[0].style.transform = 'none'; bars[1].style.opacity = '1'; bars[2].style.transform = 'none';
+          }
+        });
+      }
+
+      function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(`${pageId}-page`).classList.add('active');
+        document.querySelectorAll('.nav-btn[data-page]').forEach(button => {
+          button.classList.toggle('active', button.getAttribute('data-page') === pageId);
+        });
+        if (pageId === 'orders') { loadMyOrdersPage(); } 
+        else if (pageId === 'custom') { updateCustomOrderCount(); }
+        else if (pageId === 'home') { loadFeaturedProducts(); }
+        const nav = document.getElementById('main-nav');
+        if (nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          const bars = document.querySelectorAll('.hamburger .bar');
+          bars[0].style.transform = 'none'; bars[1].style.opacity = '1'; bars[2].style.transform = 'none';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      
+      // --- HOME PAGE SLIDER ---
+      function initSlider() {
+        const slider = document.getElementById('home-cake-slider');
+        if (!slider) return; 
+        const slides = slider.querySelectorAll('.cake-slide');
+        const totalSlides = slides.length;
+        let currentIndex = 0;
+        if (totalSlides <= 1) return; 
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % totalSlides; 
+          slider.style.transform = `translateX(${currentIndex * -100}%)`;
+        }, 3000);
+      }
+
+      // --- DYNAMIC SHOP & HOMEPAGE (Now uses shared data) ---
+      function loadShop() {
+        // Load data from localStorage (shared with admin dashboard)
+        allProducts = loadProducts();
+        allCategories = loadCategories();
+        
+        renderCategories();
+        renderProducts(allProducts);
+        loadFeaturedProducts();
+      }
+
+      function renderCategories() {
+        const container = document.getElementById('filter-options-container');
+        container.innerHTML = '';
+        // Add "All" filter
+        container.innerHTML += `<button class="filter-btn active" data-filter="all">All Cakes</button>`;
+        
+        allCategories.forEach((category) => {
+          container.innerHTML += `
+            <button class="filter-btn" data-filter="${category.id}">
+              ${category.name}
+            </button>
+          `;
+        });
+        initFilters();
+      }
+
+      function renderProducts(products) {
+        const container = document.getElementById('products-grid');
+        container.innerHTML = '';
+        if (products.length === 0) {
+          container.innerHTML = '<p>No cakes found in this category.</p>';
+          return;
+        }
+        products.forEach(product => {
+          container.innerHTML += `
+            <div class="product-card" data-category="${product.category}">
+              ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+              <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
+              <div class="product-info">
+                <div class="product-title">${product.name}</div>
+                <div class="product-id">ID: ${product.id}</div>
+                <div class="product-description">${product.description}</div>
+                <div class="product-price">₹ ${product.price}</div>
+                <div class="product-actions">
+                  <button class="btn btn-secondary view-product-btn" data-image="${product.imageUrl}" data-product='${JSON.stringify(product)}'><i class="fas fa-eye"></i> View</button>
+                  <button class="btn btn-buy buy-btn" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.imageUrl}">
+                    <i class="fas fa-shopping-cart"></i> Buy
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        initShopDynamicButtons();
+      }
+      
+      function loadFeaturedProducts() {
+        const container = document.getElementById('featured-products-grid');
+        if (!container) return;
+        container.innerHTML = '';
+        // Get 4 random products or all if less than 4
+        const featured = allProducts.length <= 4 ? allProducts : [...allProducts].sort(() => 0.5 - Math.random()).slice(0, 4);
+        featured.forEach(product => {
+          container.innerHTML += `
+            <div class="product-card" data-category="${product.category}">
+              ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+              <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
+              <div class="product-info">
+                <div class="product-title">${product.name}</div>
+                <div class="product-price">₹ ${product.price}</div>
+                <div class="product-actions">
+                  <button class="btn btn-secondary view-product-btn" data-image="${product.imageUrl}" data-product='${JSON.stringify(product)}'><i class="fas fa-eye"></i> View</button>
+                  <button class="btn btn-buy buy-btn" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.imageUrl}">
+                    <i class="fas fa-shopping-cart"></i> Buy
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        initShopDynamicButtons();
+      }
+
+      // --- SHOP AND PAYMENT ---
+      function initShopDynamicButtons() {
+        const buyButtons = document.querySelectorAll('.buy-btn');
+        const paymentModal = document.getElementById('payment-modal');
+        
+        // Remove old listeners to prevent duplicates
+        buyButtons.forEach(button => {
+          button.replaceWith(button.cloneNode(true));
+        });
+        
+        // Add new listeners
+        document.querySelectorAll('.buy-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const name = button.getAttribute('data-name');
+            const price = button.getAttribute('data-price');
+            const image = button.getAttribute('data-image');
+            document.getElementById('payment-product-name').textContent = name;
+            document.getElementById('payment-product-price').textContent = price;
+            document.getElementById('payment-product-image').value = image;
+            
+            // Clear previous customer data
+            document.getElementById('payment-customer-name').value = '';
+            document.getElementById('payment-customer-phone').value = '';
+            
+            paymentModal.style.display = 'flex';
+          });
+        });
+      }
+
+      function initPaymentModal() {
+        const paymentModal = document.getElementById('payment-modal');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const paymentForm = document.getElementById('payment-form');
+        const cardFields = document.getElementById('card-payment-fields');
+        const upiFields = document.getElementById('upi-payment-fields');
+        const payBtnText = document.getElementById('pay-btn-text');
+
+        paymentOptions.forEach(option => {
+          option.addEventListener('click', () => {
+            paymentOptions.forEach(o => o.classList.remove('selected'));
+            option.classList.add('selected');
+            const method = option.getAttribute('data-method');
+            const cardInputs = cardFields.querySelectorAll('input');
+            cardFields.style.display = method === 'card' ? 'block' : 'none';
+            upiFields.style.display = method === 'upi' ? 'block' : 'none';
+            cardInputs.forEach(input => input.required = (method === 'card'));
+            if(method === 'cod') payBtnText.textContent = 'Place Order';
+            else if (method === 'upi') payBtnText.textContent = 'Confirm Payment';
+            else payBtnText.textContent = 'Pay Now';
+          });
+        });
+
+        paymentForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const customerName = document.getElementById('payment-customer-name').value;
+          const customerPhone = document.getElementById('payment-customer-phone').value;
+          
+          if (!customerName || !customerPhone) {
+            showToast('Please enter your name and phone number');
+            return;
+          }
+          
+          const newOrderData = {
+            product: document.getElementById('payment-product-name').textContent,
+            price: document.getElementById('payment-product-price').textContent,
+            paymentMethod: document.querySelector('.payment-option.selected').getAttribute('data-method').toUpperCase(),
+            imageUrl: document.getElementById('payment-product-image').value,
+            customerName: customerName,
+            customerPhone: customerPhone,
+            status: 'Pending'
+          };
+          
+          try {
+            // Simulate a successful order response
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            const createdOrder = {
+              id: 'MOCK' + Math.floor(Math.random() * 90000 + 10000),
+              date: new Date().toLocaleDateString(),
+              ...newOrderData 
+            };
+            
+            // Save order to localStorage (for admin dashboard)
+            const existingOrders = JSON.parse(localStorage.getItem('hmc_shop_orders')) || [];
+            existingOrders.push(createdOrder);
+            localStorage.setItem('hmc_shop_orders', JSON.stringify(existingOrders));
+            
+            paymentModal.style.display = 'none';
+            document.getElementById('order-id-confirm').textContent = '#' + createdOrder.id;
+            document.getElementById('confirm-product-name').textContent = createdOrder.product;
+            document.getElementById('confirm-product-price').textContent = createdOrder.price;
+            document.getElementById('confirm-total-price').textContent = createdOrder.price;
+            confirmationModal.style.display = 'flex';
+            showToast('Order placed successfully!');
+          } catch (error) {
+            console.error('Payment Error:', error);
+            showToast('Error placing order. Please try again.');
+          }
+        });
+
+        // Close ALL modals
+        document.querySelectorAll('.close-modal').forEach(button => {
+          button.addEventListener('click', () => {
+            document.querySelectorAll('.modal-backdrop').forEach(modal => { modal.style.display = 'none'; });
+          });
+        });
+        document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+          backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) { backdrop.style.display = 'none'; }
+          });
+        });
+        document.getElementById('continue-shopping-btn').addEventListener('click', () => {
+          confirmationModal.style.display = 'none';
+          showPage('shop');
+        });
+      }
+
+      // --- AUTH MODAL FUNCTIONALITY ---
+      function initAuth() {
+        const authModal = document.getElementById('auth-modal');
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const authTitle = document.getElementById('auth-modal-title');
+        const showSignup = document.getElementById('show-signup');
+        const showLogin = document.getElementById('show-login');
+
+        loginBtn.addEventListener('click', () => {
+          authModal.style.display = 'flex';
+          loginForm.style.display = 'block';
+          signupForm.style.display = 'none';
+          authTitle.textContent = 'Login';
+        });
+        signupBtn.addEventListener('click', () => {
+          authModal.style.display = 'flex';
+          loginForm.style.display = 'none';
+          signupForm.style.display = 'block';
+          authTitle.textContent = 'Sign Up';
+        });
+        showSignup.addEventListener('click', (e) => {
+          e.preventDefault();
+          loginForm.style.display = 'none';
+          signupForm.style.display = 'block';
+          authTitle.textContent = 'Sign Up';
+        });
+        showLogin.addEventListener('click', (e) => {
+          e.preventDefault();
+          loginForm.style.display = 'block';
+          signupForm.style.display = 'none';
+          authTitle.textContent = 'Login';
+        });
+        loginForm.addEventListener('submit', (e) => { e.preventDefault(); showToast('Login system not built yet.'); authModal.style.display = 'none'; });
+        signupForm.addEventListener('submit', (e) => { e.preventDefault(); showToast('Sign up system not built yet.'); authModal.style.display = 'none'; });
+      }
+
+      // --- "MY ORDERS" PAGE (Both Sections - Now uses mock data) ---
+      function loadMyOrdersPage() {
+        renderShopOrders();
+        renderCustomOrders();
+      }
+      
+      function renderShopOrders() {
+        const container = document.getElementById('shop-orders-container');
+        const mockOrders = [
+            { id: 'S1001', date: '2025-10-20', product: 'Chocolate Decadence', price: 950, imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80', paymentMethod: 'CARD', status: 'Completed' },
+            { id: 'S1002', date: '2025-10-25', product: 'Classic Vanilla Bean', price: 799, imageUrl: 'https://placehold.co/600x400/b94e6b/ffffff?text=Vanilla+Bean', paymentMethod: 'COD', status: 'Processing' }
+        ];
+
+        if (mockOrders.length === 0) {
+          container.innerHTML = '<p>You have no past collection orders.</p>';
+          return;
+        }
+        container.innerHTML = '';
+        mockOrders.forEach(order => {
+          const statusClass = order.status.toLowerCase();
+          container.innerHTML += `
+            <div class="order-card">
+              <div class="order-header">
+                <div> <div class="order-id">Order #${order.id}</div> <div class="order-date">Placed on ${order.date}</div> </div>
+                <div class="order-status status-${statusClass}">${order.status}</div>
+              </div>
+              <div class="order-details">
+                <img src="${order.imageUrl}" alt="${order.product}" class="order-image">
+                <div>
+                  <div class="order-product-title">${order.product}</div>
+                  <div class="order-price">₹ ${order.price}</div>
+                  <div>Payment: ${order.paymentMethod}</div>
+                </div>
+              </div>
+              <div class="order-footer">
+                <div class="order-total">Total: ₹ ${order.price}</div>
+                <button class="btn btn-secondary view-details-btn" data-title="Order Details" data-image="${order.imageUrl}"
+                        data-details='${JSON.stringify({ "Order ID": order.id, "Date": order.date, "Status": order.status, "Product": order.product, "Total": `₹ ${order.price}` })}'>
+                  View Details
+                </button>
+              </div>
+            </div>
+          `;
+        });
+      }
+      
+      function renderCustomOrders() {
+        const container = document.getElementById('custom-orders-container');
+        const mockCustomOrders = [
+            { id: 'C2001', date: '2025-09-15', type: 'Wedding Cake', size: '10 inches', flavor: 'Almond', filling: 'Buttercream', design: 'Simple tiered design with fresh flowers.', customerName: 'Rina D.', customerPhone: '960...00', status: 'Completed' },
+            { id: 'C2002', date: '2025-11-05', type: 'Birthday Cake', size: '6 inches', flavor: 'Red Velvet', filling: 'Cream Cheese', design: 'Space theme for a 5-year-old boy.', customerName: 'Amit S.', customerPhone: '960...01', status: 'Pending' }
+        ];
+
+        if (mockCustomOrders.length === 0) {
+            container.innerHTML = '<tr><td colspan="5">You have no past custom orders.</td></tr>';
+            return;
+        }
+        container.innerHTML = '';
+        mockCustomOrders.forEach(order => {
+            const statusClass = order.status.toLowerCase();
+            const details = { ...order };
+            delete details.design;
+            container.innerHTML += `
+                <tr>
+                    <td>${order.id}</td>
+                    <td>${order.date}</td>
+                    <td>${order.type}</td>
+                    <td><span class="order-status status-${statusClass}">${order.status}</span></td>
+                    <td>
+                        <button class="btn btn-secondary view-details-btn"
+                            data-title="Custom Order Details"
+                            data-image="https://images.unsplash.com/photo-1599408865610-85f26620f89b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80"
+                            data-details='${JSON.stringify({ ...details, "Design Details": order.design.substring(0, 30) + "..." })}'>
+                            View Details
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+      }
+
+      // --- CUSTOM ORDERS (Now simulated) ---
+      async function initCustomOrders() {
+        // Since we are not fetching the count, we use a mock count
+        updateCustomOrderCount(2); 
+
+        document.getElementById('custom-order-form').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const customerName = document.getElementById('customer-name').value;
+          const customerPhone = document.getElementById('customer-phone').value;
+          
+          if (!customerName || !customerPhone) {
+            showToast('Please enter your name and phone number');
+            return;
+          }
+          
+          // Simulate submission success
+          await new Promise(resolve => setTimeout(resolve, 500)); 
+          
+          const currentCount = parseInt(document.getElementById('custom-order-count').textContent) || 0;
+          const newCount = currentCount + 1;
+
+          updateCustomOrderCount(newCount);
+          e.target.reset();
+          showToast('Custom order submitted successfully!');
+        });
+      }
+
+      function updateCustomOrderCount(count) {
+          document.getElementById('custom-order-count').textContent = count;
+      }
+
+      // --- CONTACT FORM (Now simulated) ---
+      function initContactForm() {
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Simulate submission success
+          await new Promise(resolve => setTimeout(resolve, 500)); 
+          
+          showToast('Message sent successfully!');
+          e.target.reset();
+        });
+      }
+
+      // --- WORKING FILTERS ---
+      function initFilters() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            const filter = button.getAttribute('data-filter');
+            if (filter === 'all') {
+              renderProducts(allProducts);
+            } else {
+              const filtered = allProducts.filter(p => p.category === filter);
+              renderProducts(filtered);
+            }
+          });
+        });
+      }
+      
+      // --- WORKING "VIEW DETAILS" ---
+      function initViewDetails() {
+        const modal = document.getElementById('info-modal');
+        const modalTitle = document.getElementById('info-modal-title');
+        const modalImage = document.getElementById('info-modal-image');
+        const modalDetails = document.getElementById('info-modal-details');
+        document.addEventListener('click', function(e) {
+            const viewBtn = e.target.closest('.view-details-btn, .view-product-btn');
+            if (!viewBtn) return;
+            
+            if (viewBtn.classList.contains('view-product-btn')) {
+                const product = JSON.parse(viewBtn.getAttribute('data-product'));
+                modalTitle.textContent = product.name;
+                modalImage.src = product.imageUrl;
+                modalDetails.innerHTML = `
+                  <p>${product.description}</p>
+                  <p> <span class="info-label">Category:</span> ${product.category} </p>
+                  <p> <span class="info-label">Price:</span> <span style="font-weight: 700; color: var(--primary-color);">₹ ${product.price}</span> </p>
+                  ${product.badge ? `<p> <span class="info-label">Badge:</span> ${product.badge} </p>` : ''}
+                `;
+            } else {
+                modalTitle.textContent = viewBtn.getAttribute('data-title') || "Order Details";
+                modalImage.src = viewBtn.getAttribute('data-image') || "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80";
+                const details = JSON.parse(viewBtn.getAttribute('data-details'));
+                let detailsHtml = '';
+                for (const key in details) {
+                    detailsHtml += `<p> <span class="info-label">${key}:</span> <span>${details[key]}</span> </p>`;
+                }
+                modalDetails.innerHTML = detailsHtml;
+            }
+            modal.style.display = 'flex';
+        });
+      }
+      
+      // --- UTILITY FUNCTIONS ---
+      function updateCartCount() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        document.querySelector('.cart-count').textContent = totalItems;
+      }
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3000);
+      }
+    });
+  </script>
+</body>
+</html>
