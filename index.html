@@ -1,1174 +1,1273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Made Cake — by Keya Naskar (Suk Pukuria, Beonta, Hatisala, South 24 Pgs., 743502)</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #b94e6b;
-      --secondary-color: #7a2b3a;
-      --accent-color: #f6c1a9;
-      --accent-light: #fde9df;
-      --bg-color: #fff8f6;
-      --card-bg: #ffffff;
-      --text-dark: #3b2b2b;
-      --text-muted: #7a6f6f;
-      --border-color: #f0dede;
-      --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
-      --shadow-md: 0 6px 16px rgba(0,0,0,.08);
-      --shadow-lg: 0 10px 28px rgba(0,0,0,.12);
-      --gradient-primary: linear-gradient(135deg, #f49ca4, #b94e6b);
-      --gradient-accent: linear-gradient(135deg, #f6c1a9, #f2a97d);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-dark);
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    header {
-      background: var(--card-bg);
-      box-shadow: var(--shadow-sm);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      padding: 10px 0;
-    }
-    .header-content { display: flex; align-items: center; justify-content: space-between; }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .logo { 
-      width: 50px; height: 50px; border-radius: 50%;
-      background: var(--gradient-primary);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 700;
-      font-family: 'Playfair Display', serif; font-size: 18px;
-    }
-    .brand-text h1 {
-      font-family: 'Playfair Display', serif; font-size: 20px; margin: 0;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .brand-text p { font-size: 12px; margin: 0; color: var(--text-muted); }
-    nav { display: flex; gap: 5px; align-items: center; }
-    .nav-btn {
-      background: transparent; border: none; padding: 8px 15px;
-      border-radius: 8px; cursor: pointer; font-weight: 600;
-      color: var(--text-dark); font-size: 14px;
-      transition: all 0.3s ease; white-space: nowrap;
-    }
-    .nav-btn:hover, .nav-btn.active { background: var(--gradient-primary); color: #fff; }
-    .nav-btn.btn-accent { background: var(--gradient-accent); color: var(--text-dark); }
-    .nav-btn.btn-accent:hover { background: var(--accent-color); color: var(--text-dark); }
-    .hamburger { display: none; flex-direction: column; justify-content: space-around; width: 30px; height: 25px; background: transparent; border: none; cursor: pointer; padding: 0; }
-    .hamburger .bar { width: 100%; height: 3px; background: var(--primary-color); border-radius: 10px; transition: all 0.3s ease; }
-    main { flex: 1; padding: 30px 0; }
-    .page { display: none; }
-    .page.active { display: block; animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .shop-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
-    .section-title {
-      font-family: 'Playfair Display', serif; color: var(--secondary-color);
-      position: relative; padding-bottom: 10px;
-    }
-    .section-title::after {
-      content: ''; position: absolute; bottom: 0; left: 0;
-      width: 60px; height: 3px; background: var(--gradient-primary); border-radius: 3px;
-    }
-    .subsection-title {
-      font-family: 'Playfair Display', serif; font-size: 22px;
-      color: var(--secondary-color); margin-bottom: 20px;
-      padding-bottom: 5px; border-bottom: 2px solid var(--border-color);
-    }
-    .filter-options { display: flex; gap: 10px; flex-wrap: wrap; }
-    .filter-btn {
-      padding: 8px 15px; border: 1px solid var(--border-color);
-      background: white; border-radius: 20px; cursor: pointer;
-      font-size: 14px; transition: all 0.3s ease;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--gradient-primary); color: white; border-color: var(--primary-color);
-    }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
-    .product-card {
-      background: var(--card-bg); border-radius: 12px;
-      overflow: hidden; box-shadow: var(--shadow-sm);
-      transition: all 0.3s ease; position: relative;
-    }
-    .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-    .product-badge {
-      position: absolute; top: 10px; left: 10px;
-      background: var(--gradient-accent); color: var(--text-dark);
-      padding: 4px 10px; border-radius: 20px;
-      font-size: 12px; font-weight: 600; z-index: 2;
-    }
-    .product-image { width: 100%; height: 200px; object-fit: cover; transition: transform 0.5s ease; }
-    .product-card:hover .product-image { transform: scale(1.05); }
-    .product-info { padding: 15px; }
-    .product-title { font-weight: 700; margin-bottom: 5px; font-size: 16px; }
-    .product-id { color: var(--text-muted); font-size: 12px; margin-bottom: 8px; }
-    .product-description {
-      font-size: 14px; color: var(--text-muted); margin-bottom: 10px;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-    }
-    .product-price { font-weight: 700; color: var(--primary-color); margin: 10px 0; font-size: 18px; }
-    .product-actions { display: flex; gap: 8px; margin-top: 12px; }
-    .btn {
-      padding: 10px 18px; border-radius: 8px; border: none; cursor: pointer;
-      background: var(--gradient-primary); color: #fff; font-weight: 600;
-      display: inline-flex; gap: 8px; align-items: center;
-      transition: all 0.3s ease; font-size: 14px;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .btn-secondary { background: #fff; border: 1px solid var(--border-color); color: var(--text-dark); }
-    .btn-accent { background: var(--gradient-accent); }
-    .btn-buy { background: #4caf50; flex: 1; justify-content: center; }
-    .modal-backdrop {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5); display: none;
-      justify-content: center; align-items: center;
-      z-index: 2000; padding: 20px;
-    }
-    .modal {
-      background: white; border-radius: 12px; padding: 25px;
-      max-width: 500px; width: 100%; max-height: 90vh;
-      overflow-y: auto; box-shadow: var(--shadow-lg); position: relative;
-    }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .modal-title { font-family: 'Playfair Display', serif; color: var(--secondary-color); font-size: 24px; }
-    .close-modal { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-muted); transition: color 0.3s ease; }
-    .close-modal:hover { color: var(--primary-color); }
-    .payment-options { display: flex; gap: 10px; margin-bottom: 20px; }
-    .payment-option {
-      flex: 1; padding: 15px; border: 2px solid var(--border-color);
-      border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.3s ease;
-    }
-    .payment-option:hover, .payment-option.selected { border-color: var(--primary-color); background: var(--bg-color); }
-    .payment-option i { font-size: 24px; margin-bottom: 8px; color: var(--text-muted); }
-    .payment-option.selected i { color: var(--primary-color); }
-    .payment-option img { height: 24px; margin-bottom: 8px; opacity: 0.6; }
-    .payment-option.selected img { opacity: 1; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-muted); }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: 12px 15px; border: 1px solid var(--border-color);
-      border-radius: 8px; font-family: 'Poppins', sans-serif;
-      transition: border-color 0.3s ease;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      outline: none; border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(185, 78, 107, 0.1);
-    }
-    .auth-toggle { text-align: center; margin-top: 15px; font-size: 14px; }
-    .auth-toggle a { color: var(--primary-color); text-decoration: none; font-weight: 600; cursor: pointer; }
-    .auth-toggle a:hover { text-decoration: underline; }
-    .form-row { display: flex; gap: 15px; }
-    .form-row .form-group { flex: 1; }
-    #info-modal-content { padding: 10px; }
-    #info-modal-image { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 20px; }
-    #info-modal-details { line-height: 1.8; }
-    #info-modal-details p { margin-bottom: 10px; }
-    #info-modal-details .info-label { font-weight: 600; color: var(--text-muted); margin-right: 8px; }
-    .orders-container { display: flex; flex-direction: column; gap: 20px; }
-    .table-wrapper {
-        background: var(--card-bg); border-radius: 8px;
-        box-shadow: var(--shadow-sm); overflow-x: auto; margin-bottom: 30px;
-    }
-    table { width: 100%; border-collapse: collapse; }
-    table th, table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
-    table th { font-size: 12px; text-transform: uppercase; color: var(--text-muted); background: var(--bg-color); }
-    table tr:last-child td { border-bottom: none; }
-    .order-card { background: var(--card-bg); border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm); }
-    .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-    .order-id { font-weight: 700; color: var(--primary-color); }
-    .order-date { color: var(--text-muted); font-size: 14px; }
-    .order-status { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: capitalize; }
-    .status-processing { background: #fff4e5; color: #ffa500; }
-    .status-completed { background: #e7f6ed; color: #0c9d57; }
-    .status-pending { background: #e7f0ff; color: #3d6bff; }
-    .order-details { display: grid; grid-template-columns: 80px 1fr; gap: 15px; margin-bottom: 15px; }
-    .order-image { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
-    .order-product-title { font-weight: 700; margin-bottom: 5px; }
-    .order-price { color: var(--primary-color); font-weight: 700; margin-bottom: 5px; }
-    .order-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--border-color); flex-wrap: wrap; gap: 10px; }
-    .order-total { font-weight: 700; font-size: 18px; }
-    .compact-hero { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; flex-wrap: wrap; gap: 20px; }
-    .hero-text { flex: 1; min-width: 300px; }
-    .hero-text h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--secondary-color); margin-bottom: 10px; }
-    .hero-text p { color: var(--text-muted); margin-bottom: 15px; }
-    .hero-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-    .cake-slider-container { flex: 1; min-width: 300px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: var(--shadow-md); height: 200px; }
-    .cake-slider { display: flex; transition: transform 0.5s ease; height: 100%; }
-    .cake-slide { min-width: 100%; height: 100%; position: relative; }
-    .cake-slide img { width: 100%; height: 100%; object-fit: cover; }
-    .slide-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.6); color: white; padding: 8px 15px; font-size: 14px; }
-    .form-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
-    .stat-card { text-align: center; padding: 30px 20px; }
-    .stat-number { font-size: 42px; font-weight: 700; color: var(--primary-color); margin: 10px 0; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    footer { background: var(--secondary-color); color: white; padding: 40px 0 20px; margin-top: 50px; }
-    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px; }
-    .footer-column h3 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 20px; position: relative; padding-bottom: 10px; }
-    .footer-column h3::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: var(--accent-color); }
-    .footer-links { list-style: none; }
-    .footer-links li { margin-bottom: 12px; }
-    .footer-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; gap: 10px; }
-    .footer-links a:hover { color: var(--accent-color); }
-    .footer-contact-info { display: flex; flex-direction: column; gap: 15px; }
-    .contact-item { display: flex; align-items: center; gap: 12px; }
-    .contact-item i { color: var(--accent-color); font-size: 18px; }
-    .social-links { display: flex; gap: 15px; margin-top: 20px; }
-    .social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: white; transition: all 0.3s ease; }
-    .social-links a:hover { background: var(--accent-color); transform: translateY(-3px); }
-    .copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; color: rgba(255, 255, 255, 0.7); }
-    .toast {
-      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-      background: var(--primary-color); color: white; padding: 12px 25px;
-      border-radius: 8px; box-shadow: var(--shadow-lg);
-      z-index: 3000; display: none;
-      animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
-    }
-    @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
-    @keyframes toastOut { from { opacity: 1; transform: translate(-50%, 0); } to { opacity: 0; transform: translate(-50%, 20px); } }
-    .floating-btn {
-      position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px;
-      border-radius: 50%; background: var(--gradient-primary); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--shadow-lg); cursor: pointer; z-index: 999;
-      transition: all 0.3s ease;
-    }
-    .floating-btn:hover { transform: scale(1.1); }
-    .cart-count {
-      position: absolute; top: -5px; right: -5px;
-      background: var(--secondary-color); color: white;
-      border-radius: 50%; width: 22px; height: 22px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 700;
-    }
-    @media (max-width: 768px) {
-      .hamburger { display: flex; }
-      nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--card-bg); flex-direction: column; padding: 10px; box-shadow: var(--shadow-md); }
-      nav.active { display: flex; }
-      .nav-btn { width: 100%; text-align: left; padding: 12px 20px; }
-      .shop-header { flex-direction: column; align-items: flex-start; }
-      .filter-options { width: 100%; overflow-x: auto; padding-bottom: 10px; }
-      .products-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-      .form-row { flex-direction: column; gap: 0; }
-      .footer-content { grid-template-columns: 1fr; }
-      .compact-hero { flex-direction: column; }
-      .hero-text, .cake-slider-container { width: 100%; }
-      .form-grid, .contact-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 480px) {
-      .brand-text h1 { font-size: 18px; }
-      .logo { width: 45px; height: 45px; font-size: 16px; }
-      .section-title { font-size: 24px; }
-      .btn { padding: 8px 14px; font-size: 13px; }
-      .products-grid { grid-template-columns: 1fr; }
-      .modal { padding: 20px 15px; }
-      .payment-options { flex-direction: column; }
-      .stat-number { font-size: 32px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Home Made Cake — by Keya Naskar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ═══════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════ */
+:root{
+  --rose:#c4576b; --rose-dk:#8b3147; --rose-lt:#f7e0d8;
+  --cream:#fdf8f4; --warm:#f2e6da; --mocha:#3e2420;
+  --muted:#9a7b74; --card:#fff; --border:rgba(196,87,107,.14);
+  --sh-xs:0 1px 6px rgba(62,36,32,.06);
+  --sh-sm:0 3px 14px rgba(62,36,32,.08);
+  --sh-md:0 8px 30px rgba(62,36,32,.12);
+  --sh-lg:0 20px 60px rgba(62,36,32,.18);
+  --grad:linear-gradient(135deg,#da6f7d,#c4576b);
+  --nav-h:70px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--mocha);line-height:1.65;min-height:100vh;display:flex;flex-direction:column}
+.container{max-width:1240px;margin:0 auto;padding:0 28px}
+
+/* ═══════════════════════════════
+   HEADER & NAV
+═══════════════════════════════ */
+header{background:rgba(253,248,244,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:900}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);gap:12px}
+.brand{display:flex;align-items:center;gap:13px;cursor:pointer;flex-shrink:0}
+.logo-mark{width:44px;height:44px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;box-shadow:0 4px 16px rgba(196,87,107,.38);flex-shrink:0}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.4px}
+#desktop-nav{display:flex;align-items:center;gap:3px}
+.nav-link{background:none;border:none;padding:8px 13px;border-radius:9px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14.5px;font-weight:500;color:var(--mocha);transition:all .22s;white-space:nowrap;position:relative}
+.nav-link:hover{background:var(--rose-lt);color:var(--rose-dk)}
+.nav-link.active{color:var(--rose-dk);background:var(--rose-lt);font-weight:600}
+.nav-link.active::after{content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:55%;height:2px;background:var(--rose);border-radius:2px}
+.nav-sep{width:1px;height:22px;background:var(--border);margin:0 4px;flex-shrink:0}
+.nav-pill{padding:9px 18px;border-radius:24px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .22s;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.nav-pill.login{background:transparent;border:1.5px solid var(--border);color:var(--mocha)}
+.nav-pill.login:hover{border-color:var(--rose);color:var(--rose)}
+.nav-pill.signup{background:var(--grad);color:#fff;box-shadow:0 4px 14px rgba(196,87,107,.32)}
+.nav-pill.signup:hover{transform:translateY(-1px);box-shadow:0 7px 22px rgba(196,87,107,.42)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;border-radius:8px;transition:.2s}
+.hamburger:hover{background:var(--rose-lt)}
+.hamburger span{display:block;width:22px;height:2px;background:var(--mocha);border-radius:4px;transition:.3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+#mobile-drawer{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(253,248,244,.98);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);box-shadow:var(--sh-md);flex-direction:column;padding:14px 20px 22px;gap:4px;z-index:880}
+#mobile-drawer.open{display:flex}
+#mobile-drawer .nav-link{width:100%;text-align:left;padding:12px 14px;border-radius:10px;font-size:15px}
+#mobile-drawer .nav-link.active{background:var(--rose-lt);color:var(--rose-dk)}
+.mob-btn-row{display:flex;gap:10px;margin-top:10px}
+.mob-btn-row .nav-pill{flex:1;text-align:center}
+
+/* ═══════════════════════════════
+   PAGES
+═══════════════════════════════ */
+main{flex:1;padding:44px 0 64px}
+.page{display:none}
+.page.active{display:block;animation:fadeUp .38s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════
+   TYPOGRAPHY & BUTTONS
+═══════════════════════════════ */
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,38px);font-weight:700;color:var(--mocha);margin-bottom:6px}
+.sec-title span{color:var(--rose);font-style:italic}
+.sec-lead{color:var(--muted);font-size:15.5px;margin-bottom:32px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14.5px;transition:all .22s;white-space:nowrap}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 5px 18px rgba(196,87,107,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(196,87,107,.42)}
+.btn-outline{background:#fff;border:1.5px solid var(--border);color:var(--mocha)}
+.btn-outline:hover{border-color:var(--rose);color:var(--rose);background:var(--rose-lt)}
+.btn-sm{padding:8px 16px;font-size:13px;border-radius:8px}
+
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:8px 0 52px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--rose-lt);color:var(--rose-dk);padding:6px 15px;border-radius:24px;font-size:12.5px;font-weight:600;letter-spacing:.5px;margin-bottom:20px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,58px);font-weight:700;line-height:1.08;color:var(--mocha);margin-bottom:20px}
+.hero h1 em{color:var(--rose)}
+.hero-lead{color:var(--muted);font-size:16px;line-height:1.75;margin-bottom:30px;max-width:420px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-visual{position:relative}
+.hero-slider{border-radius:28px;overflow:hidden;box-shadow:var(--sh-lg);aspect-ratio:4/3;position:relative}
+.slides-track{display:flex;height:100%;transition:transform .65s cubic-bezier(.77,0,.18,1)}
+.slide{min-width:100%;position:relative}
+.slide img{width:100%;height:100%;object-fit:cover;display:block}
+.slide-caption{position:absolute;bottom:0;inset-x:0;padding:22px 24px 20px;background:linear-gradient(to top,rgba(62,36,32,.72),transparent);color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700}
+.slide-dots{position:absolute;bottom:18px;right:20px;display:flex;gap:6px;z-index:2}
+.slide-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;border:none;transition:.3s}
+.slide-dot.active{background:#fff;width:24px;border-radius:4px}
+.slider-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);border:none;cursor:pointer;display:grid;place-items:center;color:var(--mocha);font-size:13px;transition:.22s;z-index:2}
+.slider-arrow:hover{background:#fff;box-shadow:var(--sh-sm)}
+.slider-arrow.prev{left:14px} .slider-arrow.next{right:14px}
+.hero-badge{position:absolute;top:-18px;right:-18px;background:#fff;border-radius:20px;box-shadow:var(--sh-md);padding:16px 20px;text-align:center;z-index:3;min-width:90px}
+.hero-badge .num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--rose);line-height:1}
+.hero-badge .lbl{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* ═══════════════════════════════
+   STATS STRIP
+═══════════════════════════════ */
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--mocha);border-radius:22px;overflow:hidden;margin:0 0 60px;box-shadow:var(--sh-md)}
+.stat-item{padding:30px 20px;text-align:center;position:relative;transition:.3s}
+.stat-item:hover{background:rgba(255,255,255,.06)}
+.stat-item+.stat-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:rgba(255,255,255,.12)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#fff;line-height:1}
+.stat-lbl{font-size:12.5px;color:rgba(255,255,255,.5);margin-top:5px;letter-spacing:.3px}
+
+/* ═══════════════════════════════
+   FEATURED & NEWSLETTER
+═══════════════════════════════ */
+.featured-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:12px}
+.newsletter{background:linear-gradient(135deg,var(--rose-lt),#fce9e0);border-radius:26px;padding:52px 40px;text-align:center;margin-top:64px;border:1px solid rgba(196,87,107,.12)}
+.newsletter h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--mocha);margin-bottom:8px}
+.newsletter p{color:var(--muted);font-size:15.5px;margin-bottom:26px}
+.nl-form{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap}
+.nl-form input{flex:1;padding:12px 18px;border:1.5px solid rgba(196,87,107,.2);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14.5px;outline:none;background:#fff;min-width:180px;color:var(--mocha)}
+.nl-form input:focus{border-color:var(--rose);box-shadow:0 0 0 4px rgba(196,87,107,.1)}
+
+/* ═══════════════════════════════
+   PRODUCT CARDS
+═══════════════════════════════ */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filter-chip{padding:9px 20px;border-radius:24px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;transition:.22s;font-family:'DM Sans',sans-serif}
+.filter-chip:hover,.filter-chip.active{background:var(--rose);border-color:var(--rose);color:#fff}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+#products-grid{grid-template-columns:repeat(3,1fr)}
+.product-card{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--sh-xs);transition:all .3s;position:relative;border:1px solid var(--border);display:flex;flex-direction:column}
+.product-card:hover{transform:translateY(-7px);box-shadow:var(--sh-md)}
+.product-card:hover .p-img{transform:scale(1.07)}
+.p-img-wrap{overflow:hidden;height:220px;position:relative;flex-shrink:0}
+.p-img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease;display:block}
+.p-badge{position:absolute;top:13px;left:13px;background:var(--grad);color:#fff;padding:4px 13px;border-radius:20px;font-size:11.5px;font-weight:700;letter-spacing:.3px;box-shadow:0 2px 10px rgba(196,87,107,.35)}
+.p-body{padding:20px;display:flex;flex-direction:column;flex:1}
+.p-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--mocha);margin-bottom:4px;line-height:1.2}
+.p-id{font-size:11.5px;color:var(--muted);margin-bottom:9px;letter-spacing:.3px}
+.p-desc{font-size:14.5px;color:var(--muted);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:16px;flex:1}
+.p-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:auto}
+.p-price{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--rose)}
+.p-actions{display:flex;gap:8px}
+.out-of-stock-badge{background:rgba(240,96,96,.1);color:#e05050;border:1px solid rgba(240,96,96,.2);padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:600}
+
+/* ═══════════════════════════════
+   CUSTOM ORDER PAGE
+═══════════════════════════════ */
+.custom-layout{display:grid;grid-template-columns:1fr 2.2fr;gap:32px;align-items:start}
+.info-card{background:var(--mocha);color:#fff;border-radius:22px;padding:34px;position:sticky;top:calc(var(--nav-h) + 20px)}
+.info-card h3{font-family:'Cormorant Garamond',serif;font-size:28px;margin-bottom:14px;color:#fff}
+.info-card .sub{font-size:14.5px;color:rgba(255,255,255,.58);line-height:1.7;margin-bottom:26px}
+.info-icon-row{display:flex;flex-direction:column;gap:16px}
+.info-icon-item{display:flex;align-items:center;gap:13px;font-size:14.5px;color:rgba(255,255,255,.82)}
+.info-icon-item i{width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:10px;display:grid;place-items:center;color:var(--rose-lt);font-size:15px;flex-shrink:0}
+.order-stat{background:var(--rose);border-radius:16px;padding:22px;text-align:center;margin-top:26px}
+.order-stat .big{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:#fff;line-height:1}
+.order-stat .lbl{font-size:12.5px;color:rgba(255,255,255,.72);margin-top:4px}
+.form-card{background:var(--card);border-radius:22px;padding:38px;box-shadow:var(--sh-sm);border:1px solid var(--border)}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:13.5px;font-weight:600;color:var(--mocha);margin-bottom:8px;letter-spacing:.2px}
+.form-control{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:14.5px;color:var(--mocha);background:#fff;transition:.25s;outline:none}
+.form-control:focus{border-color:var(--rose);box-shadow:0 0 0 4px rgba(196,87,107,.1)}
+.form-control::placeholder{color:#ccc}
+textarea.form-control{resize:vertical;min-height:112px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* ═══════════════════════════════
+   MY ORDERS PAGE
+═══════════════════════════════ */
+.orders-grid{display:flex;flex-direction:column;gap:20px;margin-bottom:36px}
+.order-card{background:var(--card);border-radius:20px;padding:24px;box-shadow:var(--sh-xs);border:1px solid var(--border);transition:.25s}
+.order-card:hover{box-shadow:var(--sh-sm)}
+.order-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.order-id{font-weight:700;color:var(--rose);font-size:15px}
+.order-date{font-size:13.5px;color:var(--muted)}
+.order-body{display:grid;grid-template-columns:92px 1fr;gap:18px}
+.order-thumb{width:92px;height:92px;object-fit:cover;border-radius:14px}
+.order-product{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--mocha);margin-bottom:4px}
+.order-price-lbl{color:var(--rose);font-weight:700;font-size:15.5px;margin-bottom:4px}
+.order-meta{font-size:13.5px;color:var(--muted)}
+.order-foot{display:flex;justify-content:space-between;align-items:center;padding-top:16px;margin-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px}
+.order-total{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--mocha)}
+.status-badge{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:capitalize}
+.status-completed{background:#e5f7ee;color:#1a8f52}
+.status-processing{background:#fff3e0;color:#cc7a00}
+.status-pending{background:#eaf0ff;color:#2f55d4}
+.status-cancelled{background:#fef0f0;color:#cc2222}
+.table-wrap{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--sh-xs);border:1px solid var(--border);overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:13px 18px;text-align:left;border-bottom:1px solid var(--border);font-size:14.5px}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);background:var(--warm)}
+tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--cream)}
+
+/* ═══════════════════════════════
+   CONTACT PAGE
+═══════════════════════════════ */
+.contact-layout{display:grid;grid-template-columns:1fr 1.65fr;gap:32px;align-items:start}
+.contact-info-card{background:var(--mocha);border-radius:22px;padding:38px;color:#fff;position:sticky;top:calc(var(--nav-h) + 20px)}
+.contact-info-card h3{font-family:'Cormorant Garamond',serif;font-size:30px;margin-bottom:10px;color:#fff}
+.contact-info-card .sub{font-size:14.5px;color:rgba(255,255,255,.55);margin-bottom:30px;line-height:1.7}
+.contact-item{display:flex;align-items:flex-start;gap:15px;margin-bottom:24px}
+.contact-icon{width:44px;height:44px;background:rgba(255,255,255,.1);border-radius:13px;display:grid;place-items:center;color:var(--rose-lt);font-size:17px;flex-shrink:0}
+.contact-item h4{font-size:11px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px;font-family:'DM Sans',sans-serif}
+.contact-item p,.contact-item a{font-size:14.5px;color:#fff;line-height:1.6;text-decoration:none}
+.hours-grid{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin-top:4px}
+.hours-day{font-size:13.5px;color:rgba(255,255,255,.52)}
+.hours-time{font-size:13.5px;color:rgba(255,255,255,.85);font-weight:500}
+.social-row{display:flex;gap:10px;margin-top:28px}
+.social-btn{width:42px;height:42px;background:rgba(255,255,255,.1);border-radius:11px;display:grid;place-items:center;color:#fff;transition:.22s;text-decoration:none}
+.social-btn:hover{background:var(--rose);transform:translateY(-2px)}
+
+/* ═══════════════════════════════
+   MODALS
+═══════════════════════════════ */
+.modal-backdrop{position:fixed;inset:0;background:rgba(62,36,32,.48);display:none;align-items:center;justify-content:center;z-index:1100;padding:20px;backdrop-filter:blur(8px)}
+.modal-backdrop.open{display:flex}
+.modal{background:#fff;border-radius:26px;padding:34px;max-width:500px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:var(--sh-lg);position:relative;animation:fadeUp .3s ease both}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--mocha)}
+.modal-close{background:var(--warm);border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:19px;color:var(--muted);display:grid;place-items:center;transition:.2s;flex-shrink:0}
+.modal-close:hover{background:var(--rose-lt);color:var(--rose)}
+.pay-summary{background:var(--warm);border-radius:14px;padding:18px 22px;margin-bottom:22px}
+.pay-summary h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;margin-bottom:4px}
+.pay-summary .price{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--rose)}
+.payment-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+.pay-method{padding:15px 10px;border:2px solid var(--border);border-radius:13px;text-align:center;cursor:pointer;transition:.22s}
+.pay-method:hover,.pay-method.selected{border-color:var(--rose);background:var(--rose-lt)}
+.pay-method i{font-size:24px;color:var(--muted);margin-bottom:8px;display:block}
+.pay-method.selected i{color:var(--rose)}
+.pay-method span{font-size:12.5px;font-weight:600;color:var(--mocha)}
+.confirm-icon{font-size:60px;color:#2fa85a;text-align:center;margin:8px 0 18px}
+.confirm-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14.5px}
+.confirm-row:last-child{border:none;font-weight:700;font-size:16px}
+.info-img{width:100%;height:250px;object-fit:cover;border-radius:14px;margin-bottom:22px;display:block}
+.info-detail-row{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border);font-size:14.5px}
+.info-detail-row:last-child{border:none}
+.info-key{font-weight:600;color:var(--muted);font-size:13px}
+.info-val{color:var(--mocha);text-align:right;max-width:62%;line-height:1.4}
+
+/* ═══════════════════════════════
+   TOAST / CART FAB
+═══════════════════════════════ */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--mocha);color:#fff;padding:13px 30px;border-radius:14px;font-size:14.5px;font-weight:500;box-shadow:var(--sh-lg);z-index:2000;opacity:0;transition:.35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.cart-fab{position:fixed;bottom:30px;right:30px;width:58px;height:58px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;box-shadow:0 6px 24px rgba(196,87,107,.44);cursor:pointer;z-index:800;border:none;transition:.25s;font-size:20px}
+.cart-fab:hover{transform:scale(1.1)}
+.cart-count{position:absolute;top:-4px;right:-4px;background:var(--mocha);color:#fff;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;display:grid;place-items:center;border:2px solid #fff}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer{background:var(--mocha);color:#fff;padding:56px 0 26px;margin-top:auto}
+.footer-grid{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;margin-bottom:14px}
+.footer-about{font-size:13.5px;color:rgba(255,255,255,.46);line-height:1.75;margin-bottom:22px}
+.footer-col h4{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px;font-family:'DM Sans',sans-serif}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:11px}
+.footer-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;transition:.2s;display:flex;align-items:center;gap:9px;cursor:pointer}
+.footer-links a:hover{color:var(--rose-lt);padding-left:4px}
+.footer-links a i{font-size:10px;color:var(--rose)}
+.footer-divider{border:none;border-top:1px solid rgba(255,255,255,.1);margin-bottom:22px}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.36);flex-wrap:wrap;gap:10px}
+.footer-bottom .heart{color:var(--rose)}
+
+/* ═══════════════════════════════
+   OFFLINE / LOADING BANNER
+═══════════════════════════════ */
+.sync-banner{display:none;background:var(--rose-lt);border-bottom:1px solid rgba(196,87,107,.2);padding:10px 0;text-align:center;font-size:13px;color:var(--rose-dk);font-weight:600}
+.sync-banner.show{display:block}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media(max-width:1020px){
+  .hero{grid-template-columns:1fr;gap:36px} .hero-visual{order:-1} .hero-badge{top:14px;right:14px}
+  .stats-strip{grid-template-columns:repeat(2,1fr)} .stat-item:nth-child(2)::before{display:none}
+  .custom-layout,.contact-layout{grid-template-columns:1fr}
+  .info-card,.contact-info-card{position:static}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:30px}
+  #products-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  #desktop-nav{display:none} .hamburger{display:flex}
+  .products-grid,#products-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr} .footer-grid{grid-template-columns:1fr}
+  .newsletter{padding:34px 24px} .payment-methods{grid-template-columns:1fr}
+  .modal{padding:24px 18px} .hero{gap:26px} .hero h1{font-size:32px}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .products-grid,#products-grid{grid-template-columns:1fr} .container{padding:0 16px}
+  .hero-btns{flex-direction:column} .hero-btns .btn{width:100%;justify-content:center}
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container header-content">
-      <div class="brand">
-        <div class="logo">HM</div>
-        <div class="brand-text">
-          <h1>Home Made Cake</h1>
-          <p>by Keya Naskar · Suk Pukuria, Beonta, Hatisala, South 24 Pgs., 743502· +91 9600000000</p>
-        </div>
+
+<!-- Sync banner -->
+<div class="sync-banner" id="sync-banner"><i class="fas fa-sync-alt"></i> Refreshing content from admin…</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header style="position:sticky;top:0;z-index:900">
+  <div class="container header-inner">
+    <div class="brand" onclick="navTo('home')">
+      <div class="logo-mark" id="hdr-logo">K</div>
+      <div>
+        <div class="brand-name" id="hdr-brand-name">Home Made Cake</div>
+        <div class="brand-sub" id="hdr-brand-sub">by Keya Naskar · South 24 Pgs. · 743502</div>
       </div>
-      <nav id="main-nav">
-        <button class="nav-btn" data-page="home">Home</button>
-        <button class="nav-btn" data-page="shop">Shop</button>
-        <button class="nav-btn" data-page="custom">Custom Cake</button>
-        <button class="nav-btn" data-page="orders">My Orders</button>
-        <button class="nav-btn" data-page="contact">Contact</button>
-        <button class="nav-btn" id="login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
-        <button class="nav-btn btn-accent" id="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</button>
-      </nav>
-      <button class="hamburger" id="hamburger">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
     </div>
-  </header>
+    <div id="desktop-nav">
+      <button class="nav-link" data-page="home">Home</button>
+      <button class="nav-link" data-page="shop" id="nav-shop">Shop</button>
+      <button class="nav-link" data-page="custom" id="nav-custom">Custom Cake</button>
+      <button class="nav-link" data-page="orders">My Orders</button>
+      <button class="nav-link" data-page="contact">Contact</button>
+      <div class="nav-sep"></div>
+      <button class="nav-pill login" id="login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+      <button class="nav-pill signup" id="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div id="mobile-drawer">
+    <button class="nav-link" data-page="home">🏠&nbsp; Home</button>
+    <button class="nav-link" data-page="shop" id="mob-nav-shop">🎂&nbsp; Shop</button>
+    <button class="nav-link" data-page="custom" id="mob-nav-custom">✨&nbsp; Custom Cake</button>
+    <button class="nav-link" data-page="orders">📦&nbsp; My Orders</button>
+    <button class="nav-link" data-page="contact">📞&nbsp; Contact</button>
+    <div class="mob-btn-row">
+      <button class="nav-pill login" id="login-btn-m"><i class="fas fa-sign-in-alt"></i> Login</button>
+      <button class="nav-pill signup" id="signup-btn-m"><i class="fas fa-user-plus"></i> Sign Up</button>
+    </div>
+  </div>
+</header>
 
-  <main class="container">
-    <section id="home-page" class="page active">
-      <div class="compact-hero">
-        <div class="hero-text">
-          <h2>Home Made Cakes — Fresh. Hygienic. Delightful.</h2>
-          <p>Celebrate every moment with our handcrafted cakes. Shop ready-made or order a custom design.</p>
-          <div class="hero-buttons">
-            <button class="btn" id="shop-now-btn"><i class="fas fa-store"></i> Shop Now</button>
-            <button class="btn btn-accent" id="custom-order-btn"><i class="fas fa-birthday-cake"></i> Custom Order</button>
-          </div>
-        </div>
-        <div class="cake-slider-container">
-          <div class="cake-slider" id="home-cake-slider">
-            <div class="cake-slide">
-              <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Chocolate Cake">
-              <div class="slide-caption">Chocolate Decadence</div>
-            </div>
-            <div class="cake-slide">
-              <img src="https://images.unsplash.com/photo-1519766580219-0e797801d36b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Wedding Cake">
-              <div class="slide-caption">Elegant Wedding Tier</div>
-            </div>
-            <div class="cake-slide">
-              <img src="https://images.unsplash.com/photo-1562440102-87693d0a1d4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Fruit Tart">
-              <div class="slide-caption">Fresh Fruit Tart</div>
-            </div>
-            <div class="cake-slide">
-              <img src="https://images.unsplash.com/photo-1606983360176-a7114893e8c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Birthday Cake">
-              <div class="slide-caption">Funfetti Birthday Bash</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="featured-section">
-        <h2 class="section-title">Our Most Popular Cakes</h2>
-        <div class="products-grid" id="featured-products-grid">
-          </div>
-      </div>
-    </section>
+<!-- ══════════ MAIN ══════════ -->
+<main>
+<div class="container">
 
-    <section id="shop-page" class="page">
-      <div class="shop-header">
-        <h2 class="section-title">Our Cake Collection</h2>
-        <div class="filter-options" id="filter-options-container">
-          </div>
-      </div>
-      <div class="products-grid" id="products-grid">
+  <!-- HOME -->
+  <section id="home-page" class="page">
+    <div class="hero">
+      <div>
+        <div class="hero-eyebrow"><i class="fas fa-star"></i>&nbsp;<span id="hero-eyebrow-text">Handcrafted · Hygienic · Heartfelt</span></div>
+        <h1 id="hero-heading">Cakes Made with <em>Love</em><br>for Every Occasion</h1>
+        <p class="hero-lead" id="hero-lead">Celebrate birthdays, weddings, and every sweet moment with our handcrafted cakes — baked fresh to order in South 24 Parganas.</p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" onclick="navTo('shop')"><i class="fas fa-store"></i> Explore Collection</button>
+          <button class="btn btn-outline" id="custom-cta-btn" onclick="navTo('custom')"><i class="fas fa-birthday-cake"></i> Order Custom</button>
         </div>
-    </section>
-
-    <section id="custom-page" class="page">
-      <h2 class="section-title">Order a Custom Cake</h2>
-      <div class="form-grid">
-        <div class="stat-card card">
-          <i class="fas fa-birthday-cake" style="font-size: 40px; color: var(--accent-color);"></i>
-          <div class="stat-number" id="custom-order-count">0</div>
-          <p>Custom Orders Received</p>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-slider">
+          <div class="slides-track" id="hero-slides"></div>
+          <button class="slider-arrow prev" id="slide-prev"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-arrow next" id="slide-next"><i class="fas fa-chevron-right"></i></button>
+          <div class="slide-dots" id="slide-dots"></div>
         </div>
-        <form class="card" id="custom-order-form">
-          <div class="form-group">
-            <label for="customer-name">Your Name</label>
-            <input type="text" id="customer-name" required>
-          </div>
-          <div class="form-group">
-            <label for="customer-phone">Phone Number</label>
-            <input type="tel" id="customer-phone" required>
-          </div>
-          <div class="form-group">
-            <label for="cake-type">Cake Type</label>
-            <select id="cake-type" class="form-group-input">
-              <option>Birthday Cake</option>
-              <option>Wedding Cake</option>
-              <option>Anniversary Cake</option>
-              <option>Special Occasion Cake</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="cake-size">Cake Size</label>
-            <select id="cake-size" class="form-group-input">
-              <option>6 inches (Serves 8-10)</option>
-              <option>8 inches (Serves 12-16)</option>
-              <option>10 inches (Serves 20-25)</option>
-              <option>12 inches (Serves 30-35)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="cake-flavor">Cake Flavor</label>
-            <select id="cake-flavor" class="form-group-input">
-              <option>Vanilla</option>
-              <option>Chocolate</option>
-              <option>Red Velvet</option>
-              <option>Lemon</option>
-              <option>Carrot</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="cake-filling">Filling</label>
-            <select id="cake-filling" class="form-group-input">
-              <option>Buttercream</option>
-              <option>Chocolate Ganache</option>
-              <option>Fruit Preserves</option>
-              <option>Cream Cheese</option>
-              <option>Whipped Cream</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="cake-design">Design Details</label>
-            <textarea id="cake-design" rows="7" placeholder="Describe your design ideas or attach reference images" class="form-group-input"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="delivery-date">Delivery Date</label>
-            <input type="date" id="delivery-date" required class="form-group-input">
-          </div>
-          <button type="submit" class="btn"><i class="fas fa-check-circle"></i> Submit Order</button>
-        </form>
+        <div class="hero-badge"><div class="num" id="hero-badge-num">50+</div><div class="lbl">Happy Clients</div></div>
       </div>
-    </section>
+    </div>
 
-    <section id="orders-page" class="page">
-      <h2 class="section-title">My Orders</h2>
-      <h3 class="subsection-title">My Collection Orders</h3>
-      <div class="orders-container" id="shop-orders-container">
+    <div class="stats-strip" id="stats-strip">
+      <div class="stat-item"><div class="stat-num">100%</div><div class="stat-lbl">Home Baked</div></div>
+      <div class="stat-item"><div class="stat-num">6+</div><div class="stat-lbl">Cake Varieties</div></div>
+      <div class="stat-item"><div class="stat-num">50+</div><div class="stat-lbl">Happy Customers</div></div>
+      <div class="stat-item"><div class="stat-num">2+</div><div class="stat-lbl">Custom Orders</div></div>
+    </div>
+
+    <div class="featured-header">
+      <div>
+        <div class="sec-title">Our <span>Popular</span> Cakes</div>
+        <div class="sec-lead">Fresh-baked favourites, loved by our customers.</div>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="navTo('shop')"><i class="fas fa-th"></i> View All</button>
+    </div>
+    <div class="products-grid" id="featured-grid"></div>
+
+    <div class="newsletter" id="newsletter-section">
+      <h3>Stay Sweet — Get Offers in Your Inbox</h3>
+      <p>Subscribe for seasonal deals, new flavours, and behind-the-scenes baking stories.</p>
+      <div class="nl-form">
+        <input type="email" placeholder="your@email.com" id="nl-email">
+        <button class="btn btn-primary" onclick="subscribeNewsletter()"><i class="fas fa-paper-plane"></i> Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section id="shop-page" class="page">
+    <div class="sec-title">Our Cake <span>Collection</span></div>
+    <div class="sec-lead">Freshly baked every day — pick your favourite or build your own.</div>
+    <div class="filter-bar" id="filter-bar"></div>
+    <div class="products-grid" id="products-grid"></div>
+  </section>
+
+  <!-- CUSTOM -->
+  <section id="custom-page" class="page">
+    <div class="sec-title">Order a <span>Custom</span> Cake</div>
+    <div class="sec-lead">Tell us your dream cake — we'll bake it just for you.</div>
+    <div class="custom-layout">
+      <div class="info-card">
+        <h3>Why Choose Us?</h3>
+        <p class="sub">Every custom cake is handcrafted from scratch using the finest ingredients, made with love.</p>
+        <div class="info-icon-row">
+          <div class="info-icon-item"><i class="fas fa-leaf"></i><span>Fresh, Natural Ingredients</span></div>
+          <div class="info-icon-item"><i class="fas fa-hand-sparkles"></i><span>Handcrafted with Care</span></div>
+          <div class="info-icon-item"><i class="fas fa-truck"></i><span>Local Delivery Available</span></div>
+          <div class="info-icon-item"><i class="fas fa-phone-alt"></i><span>Direct Baker Contact</span></div>
         </div>
-      <h3 class="subsection-title" style="margin-top: 40px;">My Custom Cakes</h3>
-      <div class="table-wrapper">
-        <table id="my-custom-orders-table">
-          <thead>
-            <tr> <th>Order ID</th> <th>Date</th> <th>Type</th> <th>Status</th> <th>Action</th> </tr>
-          </thead>
-          <tbody id="custom-orders-container">
-            </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="contact-page" class="page">
-      <h2 class="section-title">Contact Us</h2>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <h3>Get in Touch</h3>
-          <p>Have questions about our cakes or want to place a custom order? Reach out to us!</p>
-          <div class="contact-item">
-            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div> <h4>Address</h4> <p>Suk Pukuria, Beonta, K.L.C. (now Hatisala), South 24 Pgs., 743502</p> </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon"><i class="fas fa-phone"></i></div>
-            <div> <h4>Phone</h4> <p><a href="tel:+919600000000">+91 9600000000</a></p> </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-            <div> <h4>Email</h4> <p><a href="mailto:adminhomemade.@gmail.com">adminhomemade.@gmail.com</a></p> </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon"><i class="fas fa-clock"></i></div>
-            <div> <h4>Hours</h4> <p>Monday-Saturday: 9AM - 8PM<br>Sunday: 10AM - 6PM</p> </div>
-          </div>
+        <div class="order-stat">
+          <div class="big" id="custom-order-count">0</div>
+          <div class="lbl">Custom Orders Received</div>
         </div>
-        <form class="card" id="contact-form">
-          <div class="form-group">
-            <label for="contact-name">Your Name</label>
-            <input type="text" id="contact-name" required class="form-group-input">
-          </div>
-          <div class="form-group">
-            <label for="contact-email">Email Address</label>
-            <input type="email" id="contact-email" required class="form-group-input">
-          </div>
-          <div class="form-group">
-            <label for="contact-phone">Phone Number</label>
-            <input type="tel" id="contact-phone" class="form-group-input">
-          </div>
-          <div class="form-group">
-            <label for="contact-subject">Subject</label>
-            <input type="text" id="contact-subject" required class="form-group-input">
-          </div>
-          <div class="form-group">
-            <label for="contact-message">Message</label>
-            <textarea id="contact-message" rows="4" required class="form-group-input"></textarea>
-          </div>
-          <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Send Message</button>
-        </form>
       </div>
-    </section>
-  </main>
-
-  <div class="modal-backdrop" id="payment-modal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 class="modal-title">Complete Your Purchase</h3>
-        <button class="close-modal">&times;</button>
-      </div>
-      <div class="product-summary">
-        <h4 id="payment-product-name">Product Name</h4>
-        <div class="product-price">₹ <span id="payment-product-price">0</span></div>
-        <input type="hidden" id="payment-product-image" value="">
-      </div>
-      <div class="form-group">
-        <label for="payment-customer-name">Your Name</label>
-        <input type="text" id="payment-customer-name" required>
-      </div>
-      <div class="form-group">
-        <label for="payment-customer-phone">Phone Number</label>
-        <input type="tel" id="payment-customer-phone" required>
-      </div>
-      <div class="payment-options">
-        <div class="payment-option selected" data-method="card"> <i class="fas fa-credit-card"></i> <div>Credit Card</div> </div>
-        <div class="payment-option" data-method="upi"> <i class="fas fa-mobile-alt"></i> <div>Pay with UPI</div> </div>
-        <div class="payment-option" data-method="cod"> <i class="fas fa-money-bill-wave"></i> <div>Cash on Delivery</div> </div>
-      </div>
-      <form id="payment-form">
-        <div id="card-payment-fields">
-          <div class="form-group"> <label for="card-name">Name on Card</label> <input type="text" id="card-name" placeholder="John Doe" required> </div>
-          <div class="form-group"> <label for="card-number">Card Number</label> <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required> </div>
+      <div class="form-card">
+        <form id="custom-order-form">
           <div class="form-row">
-            <div class="form-group"> <label for="card-expiry">Expiry Date</label> <input type="text" id="card-expiry" placeholder="MM/YY" required> </div>
-            <div class="form-group"> <label for="card-cvc">CVC</label> <input type="text" id="card-cvc" placeholder="123" required> </div>
+            <div class="form-group"><label>Your Name *</label><input type="text" class="form-control" id="customer-name" placeholder="Full name" required></div>
+            <div class="form-group"><label>Phone Number *</label><input type="tel" class="form-control" id="customer-phone" placeholder="+91 98765 43210" required></div>
           </div>
-          <div class="form-group"> <label for="billing-address">Billing Address</label> <input type="text" id="billing-address" placeholder="Your full address" required> </div>
-        </div>
-        <div id="upi-payment-fields" style="display: none; text-align: center; padding: 20px 0;">
-          <i class="fas fa-qrcode" style="font-size: 80px; color: var(--text-muted); margin-bottom: 15px;"></i>
-          <p>Scan the QR code or pay using your UPI app.</p>
-          <p style="font-weight: 600; color: var(--primary-color);">pay@homemadecake</p>
-        </div>
-        <button type="submit" class="btn" style="width: 100%;"> <i class="fas fa-lock"></i> <span id="pay-btn-text">Pay Now</span> </button>
-      </form>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="confirmation-modal">
-    <div class="modal">
-      <div class="modal-header"> <h3 class="modal-title">Order Confirmed!</h3> <button class="close-modal">&times;</button> </div>
-      <div style="text-align: center; padding: 20px 0;">
-        <i class="fas fa-check-circle" style="font-size: 60px; color: #4caf50;"></i>
-        <h4 style="margin: 15px 0 10px;">Thank you for your order!</h4>
-        <p>Your order <span id="order-id-confirm" style="font-weight: 700;">#SB12345</span> has been confirmed.</p>
+          <div class="form-row">
+            <div class="form-group"><label>Cake Type</label><select class="form-control" id="cake-type"><option>Birthday Cake</option><option>Wedding Cake</option><option>Anniversary Cake</option><option>Special Occasion Cake</option></select></div>
+            <div class="form-group"><label>Cake Size</label><select class="form-control" id="cake-size"><option>6 inches (Serves 8–10)</option><option>8 inches (Serves 12–16)</option><option>10 inches (Serves 20–25)</option><option>12 inches (Serves 30–35)</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Flavour</label><select class="form-control" id="cake-flavor"><option>Vanilla</option><option>Chocolate</option><option>Red Velvet</option><option>Lemon</option><option>Carrot</option><option>Black Forest</option></select></div>
+            <div class="form-group"><label>Filling</label><select class="form-control" id="cake-filling"><option>Buttercream</option><option>Chocolate Ganache</option><option>Fruit Preserves</option><option>Cream Cheese</option><option>Whipped Cream</option></select></div>
+          </div>
+          <div class="form-group"><label>Design Details</label><textarea class="form-control" id="cake-design" placeholder="Describe your dream cake — colours, theme, text, reference photos…"></textarea></div>
+          <div class="form-group"><label>Delivery Date *</label><input type="date" class="form-control" id="delivery-date" required></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-check-circle"></i> Submit Custom Order</button>
+        </form>
       </div>
-      <div class="order-summary">
-        <h4>Order Summary</h4>
-        <div style="display: flex; justify-content: space-between; margin: 10px 0;"> <span>Product:</span> <span id="confirm-product-name"></span> </div>
-        <div style="display: flex; justify-content: space-between; margin: 10px 0;"> <span>Price:</span> <span>₹ <span id="confirm-product-price"></span></span> </div>
-        <div style="display: flex; justify-content: space-between; margin: 10px 0; font-weight: 700;"> <span>Total:</span> <span>₹ <span id="confirm-total-price"></span></span> </div>
-      </div>
-      <button class="btn" style="width: 100%; margin-top: 20px;" id="continue-shopping-btn"> <i class="fas fa-shopping-bag"></i> Continue Shopping </button>
     </div>
-  </div>
+  </section>
 
-  <div class="modal-backdrop" id="info-modal">
-    <div class="modal">
-      <div class="modal-header"> <h3 class="modal-title" id="info-modal-title">Product Details</h3> <button class="close-modal">&times;</button> </div>
-      <div id="info-modal-content"> <img id="info-modal-image" src="" alt="Product Image"> <div id="info-modal-details"> </div> </div>
+  <!-- MY ORDERS -->
+  <section id="orders-page" class="page">
+    <div class="sec-title">My <span>Orders</span></div>
+    <div class="sec-lead">Track your collection and custom cake orders.</div>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:18px;color:var(--mocha)">Collection Orders</h3>
+    <div class="orders-grid" id="shop-orders-container"></div>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;margin:12px 0 18px;color:var(--mocha)">Custom Cake Orders</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Order ID</th><th>Date</th><th>Type</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="custom-orders-container"></tbody>
+      </table>
     </div>
-  </div>
+  </section>
 
-  <div class="modal-backdrop" id="auth-modal">
-    <div class="modal">
-      <div class="modal-header"> <h3 class="modal-title" id="auth-modal-title">Login</h3> <button class="close-modal">&times;</button> </div>
-      <form id="login-form">
-        <div class="form-group"> <label for="login-email">Email Address</label> <input type="email" id="login-email" required> </div>
-        <div class="form-group"> <label for="login-password">Password</label> <input type="password" id="login-password" required> </div>
-        <button type="submit" class="btn" style="width: 100%;"><i class="fas fa-sign-in-alt"></i> Login</button>
-        <p class="auth-toggle"> Don't have an account? <a id="show-signup">Sign Up</a> </p>
-      </form>
-      <form id="signup-form" style="display: none;">
-        <div class="form-group"> <label for="signup-name">Full Name</label> <input type="text" id="signup-name" required> </div>
-        <div class="form-group"> <label for="signup-email">Email Address</label> <input type="email" id="signup-email" required> </div>
-        <div class="form-group"> <label for="signup-password">Password</label> <input type="password" id="signup-password" required> </div>
-        <button type="submit" class="btn" style="width: 100%;"><i class="fas fa-user-plus"></i> Create Account</button>
-        <p class="auth-toggle"> Already have an account? <a id="show-login">Login</a> </p>
-      </form>
-    </div>
-  </div>
-
-  <div class="toast" id="toast"></div>
-
-  <div class="floating-btn" id="cart-btn"> <i class="fas fa-shopping-cart"></i> <div class="cart-count">0</div> </div>
-
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-column">
-          <h3>Home Made Cake</h3>
-          <p>Creating delicious, handcrafted cakes for all your special occasions. Made with love and the finest ingredients.</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
+  <!-- CONTACT -->
+  <section id="contact-page" class="page">
+    <div class="sec-title">Get in <span>Touch</span></div>
+    <div class="sec-lead">Have a question or want to place a custom order? We'd love to hear from you.</div>
+    <div class="contact-layout">
+      <div class="contact-info-card">
+        <h3>Contact Information</h3>
+        <p class="sub">Reach out any time — we're happy to help you plan the perfect cake for your special occasion.</p>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div><h4>Address</h4><p id="contact-addr">Suk Pukuria, Beonta, K.L.C. (Hatisala)<br>South 24 Parganas – 743502</p></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+          <div><h4>Phone</h4><p><a id="contact-phone-link" href="tel:+919600000000">+91 9600000000</a></p></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div><h4>Email</h4><p><a id="contact-email-link" href="mailto:info@homemadecake.in">info@homemadecake.in</a></p></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-clock"></i></div>
+          <div><h4>Business Hours</h4>
+            <div class="hours-grid">
+              <span class="hours-day">Mon – Sat</span><span class="hours-time" id="hrs-weekday">9 AM – 8 PM</span>
+              <span class="hours-day">Sunday</span><span class="hours-time" id="hrs-sunday">10 AM – 6 PM</span>
+            </div>
           </div>
         </div>
-        <div class="footer-column">
-          <h3>Quick Links</h3>
-          <ul class="footer-links">
-            <li><a href="#" data-page="home"><i class="fas fa-chevron-right"></i> Home</a></li>
-            <li><a href="#" data-page="shop"><i class="fas fa-chevron-right"></i> Shop</a></li>
-            <li><a href="#" data-page="custom"><i class="fas fa-chevron-right"></i> Custom Cakes</a></li>
-            <li><a href="#" data-page="orders"><i class="fas fa-chevron-right"></i> My Orders</a></li>
-            <li><a href="#" data-page="contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Contact Info</h3>
-          <div class="footer-contact-info">
-            <div class="contact-item"> <i class="fas fa-map-marker-alt"></i> <span>Suk Pukuria, Beonta, K.L.C. (now Hatisala), South 24 Pgs., 743502</span> </div>
-            <div class="contact-item"> <i class="fas fa-phone"></i> <span><a href="tel:+919600000000" style="color: inherit; text-decoration: none;">+91 9600000000</a></span> </div>
-            <div class="contact-item"> <i class="fas fa-envelope"></i> <span><a href="mailto:adminhomemade.@gmail.com" style="color: inherit; text-decoration: none;">adminhomemade.@gmail.com</a></span> </div>
-            <div class="contact-item"> <i class="fas fa-clock"></i> <span>Open: 9AM - 8PM (Mon-Sat)</span> </div>
-          </div>
-        </div>
-        <div class="footer-column">
-          <h3>Newsletter</h3>
-          <p>Subscribe to our newsletter for updates on new flavors and special offers.</p>
-          <form>
-            <div class="form-group"> <input type="email" placeholder="Your Email Address" required> </div>
-            <button type="submit" class="btn" style="width: 100%;">Subscribe Now</button>
-          </form>
+        <div class="social-row">
+          <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-whatsapp"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-pinterest"></i></a>
         </div>
       </div>
-      <div class="copyright">
-        <p>© 2025 Home Made Cake. by Keya Naskar — Suk Pukuria, Beonta, K.L.C. (now Hatisala), South 24 Pgs., 743502 · Email: adminhomemade.@gmail.com · Mobile: +91 9600000000.</p>
+      <div class="form-card">
+        <form id="contact-form">
+          <div class="form-row">
+            <div class="form-group"><label>Your Name *</label><input type="text" class="form-control" id="contact-name" placeholder="Full name" required></div>
+            <div class="form-group"><label>Email *</label><input type="email" class="form-control" id="contact-email-inp" placeholder="email@example.com" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="contact-phone-inp" placeholder="+91 98765 43210"></div>
+            <div class="form-group"><label>Subject *</label><input type="text" class="form-control" id="contact-subject" placeholder="How can we help?" required></div>
+          </div>
+          <div class="form-group"><label>Message *</label><textarea class="form-control" id="contact-message" rows="5" placeholder="Tell us more…" required></textarea></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Use localStorage to share data between customer site and admin dashboard
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      
-      // --- DATA MANAGEMENT (Linked to Admin Dashboard) ---
-      function loadProducts() {
-        // Load products from localStorage (set by admin dashboard)
-        const storedProducts = localStorage.getItem('hmc_products');
-        if (storedProducts) {
-          return JSON.parse(storedProducts);
-        }
-        
-        // Default products if none exist in localStorage
-        return [
-          { id: 'B001', name: 'Classic Vanilla Bean', price: 799, category: 'birthday', badge: 'Best Seller', imageUrl: 'https://placehold.co/600x400/b94e6b/ffffff?text=Vanilla+Bean' , description: 'Light vanilla sponge layered with smooth vanilla buttercream.'},
-          { id: 'C002', name: 'Chocolate Decadence', price: 950, category: 'birthday', badge: 'New', imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80', description: 'Rich dark chocolate cake with chocolate ganache and shavings.'},
-          { id: 'W003', name: 'Elegant Rose Tier', price: 2999, category: 'wedding', badge: 'Premium', imageUrl: 'https://images.unsplash.com/photo-1519766580219-0e797801d36b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80', description: 'Two-tier almond cake with floral frosting, perfect for any ceremony.'},
-          { id: 'S004', name: 'Mango Delight', price: 850, category: 'seasonal', badge: 'Seasonal', imageUrl: 'https://placehold.co/600x400/f6c1a9/3b2b2b?text=Mango+Delight', description: 'Fresh mango mousse layered on a light sponge, available in summer.'},
-          { id: 'CC05', name: 'Red Velvet Cupcakes (6)', price: 450, category: 'cupcakes', badge: '', imageUrl: 'https://placehold.co/600x400/7a2b3a/ffffff?text=Red+Velvet+Cupcakes', description: 'Moist red velvet cupcakes topped with cream cheese frosting.'},
-          { id: 'B006', name: 'Black Forest Dream', price: 899, category: 'birthday', badge: '', imageUrl: 'https://placehold.co/600x400/3b2b2b/fde9df?text=Black+Forest', description: 'Chocolate sponge, whipped cream, and rich cherry filling.'},
-        ];
-      }
-      
-      function loadCategories() {
-        // Load categories from localStorage (set by admin dashboard)
-        const storedCategories = localStorage.getItem('hmc_categories');
-        if (storedCategories) {
-          return JSON.parse(storedCategories);
-        }
-        
-        // Default categories if none exist in localStorage
-        return [
-          { id: 'birthday', name: 'Birthday' },
-          { id: 'wedding', name: 'Wedding' },
-          { id: 'seasonal', name: 'Seasonal' },
-          { id: 'cupcakes', name: 'Cupcakes' }
-        ];
-      }
-      
-      // Store for dynamic data
-      let allProducts = [];
-      let allCategories = [];
+</div>
+</main>
 
-      // --- INITIALIZATION ---
-      updateCartCount();
-      initNavigation();
-      loadShop();
-      initCustomOrders();
-      initContactForm();
-      initPaymentModal();
-      initViewDetails();
-      initSlider();
-      initAuth();
-      showPage('home');
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand" id="footer-brand-name">Home Made Cake</div>
+        <p class="footer-about" id="footer-about">Creating delicious, handcrafted cakes for all your special occasions. Made with love and the finest ingredients in South 24 Parganas.</p>
+        <div class="social-row">
+          <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-whatsapp"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a onclick="navTo('home')"><i class="fas fa-chevron-right"></i>Home</a></li>
+          <li><a onclick="navTo('shop')"><i class="fas fa-chevron-right"></i>Shop</a></li>
+          <li><a onclick="navTo('custom')"><i class="fas fa-chevron-right"></i>Custom Cake</a></li>
+          <li><a onclick="navTo('orders')"><i class="fas fa-chevron-right"></i>My Orders</a></li>
+          <li><a onclick="navTo('contact')"><i class="fas fa-chevron-right"></i>Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Categories</h4>
+        <ul class="footer-links" id="footer-cats">
+          <li><a><i class="fas fa-chevron-right"></i>Birthday Cakes</a></li>
+          <li><a><i class="fas fa-chevron-right"></i>Wedding Cakes</a></li>
+          <li><a><i class="fas fa-chevron-right"></i>Seasonal Cakes</a></li>
+          <li><a><i class="fas fa-chevron-right"></i>Cupcakes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a id="footer-addr"><i class="fas fa-map-marker-alt"></i>South 24 Pgs. 743502</a></li>
+          <li><a id="footer-phone" href="#"><i class="fas fa-phone-alt"></i>+91 9600000000</a></li>
+          <li><a id="footer-email" href="#"><i class="fas fa-envelope"></i>info@homemadecake.in</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <span id="footer-copy">© 2025 Home Made Cake — by Keya Naskar. All rights reserved.</span>
+      <span>Made with <span class="heart">♥</span> in South 24 Parganas</span>
+    </div>
+  </div>
+</footer>
 
-      // --- NAVIGATION ---
-      function initNavigation() {
-        const navButtons = document.querySelectorAll('.nav-btn[data-page]');
-        const footerLinks = document.querySelectorAll('.footer-links a[data-page]');
-        const hamburger = document.getElementById('hamburger');
-        const nav = document.getElementById('main-nav');
-        navButtons.forEach(button => { button.addEventListener('click', () => showPage(button.getAttribute('data-page'))); });
-        footerLinks.forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); showPage(link.getAttribute('data-page')); }); });
-        document.getElementById('shop-now-btn').addEventListener('click', () => showPage('shop'));
-        document.getElementById('custom-order-btn').addEventListener('click', () => showPage('custom'));
-        hamburger.addEventListener('click', () => {
-          nav.classList.toggle('active');
-          const bars = document.querySelectorAll('.hamburger .bar');
-          if (nav.classList.contains('active')) {
-            bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-            bars[1].style.opacity = '0';
-            bars[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-          } else {
-            bars[0].style.transform = 'none'; bars[1].style.opacity = '1'; bars[2].style.transform = 'none';
+<!-- ══════════ MODALS ══════════ -->
+<div class="modal-backdrop" id="payment-modal">
+  <div class="modal">
+    <div class="modal-head"><span class="modal-title">Complete Purchase</span><button class="modal-close" onclick="closeModal('payment-modal')">&times;</button></div>
+    <div class="pay-summary"><h4 id="pay-product-name">Product</h4><div class="price">₹ <span id="pay-product-price">0</span></div><input type="hidden" id="pay-product-image"></div>
+    <div class="form-row" style="margin-bottom:20px">
+      <div class="form-group"><label style="font-size:13.5px;font-weight:600;display:block;margin-bottom:8px">Your Name</label><input type="text" class="form-control" id="payment-customer-name" placeholder="Full name"></div>
+      <div class="form-group"><label style="font-size:13.5px;font-weight:600;display:block;margin-bottom:8px">Phone</label><input type="tel" class="form-control" id="payment-customer-phone" placeholder="+91 …"></div>
+    </div>
+    <div style="font-size:13.5px;font-weight:600;color:var(--mocha);margin-bottom:12px">Payment Method</div>
+    <div class="payment-methods" id="payment-methods-container">
+      <div class="pay-method selected" data-method="card"><i class="fas fa-credit-card"></i><span>Card</span></div>
+      <div class="pay-method" data-method="upi" id="upi-method"><i class="fas fa-mobile-alt"></i><span>UPI</span></div>
+      <div class="pay-method" data-method="cod" id="cod-method"><i class="fas fa-money-bill-wave"></i><span>Cash on Delivery</span></div>
+    </div>
+    <form id="payment-form">
+      <div id="card-fields">
+        <div class="form-group"><label style="font-size:13.5px;font-weight:600;display:block;margin-bottom:8px">Name on Card</label><input type="text" class="form-control" placeholder="John Doe"></div>
+        <div class="form-group"><label style="font-size:13.5px;font-weight:600;display:block;margin-bottom:8px">Card Number</label><input type="text" class="form-control" placeholder="1234 5678 9012 3456"></div>
+        <div class="form-row">
+          <div class="form-group"><label style="font-size:13.5px;font-weight:600;display:block;margin-bottom:8px">Expiry</label><input type="text" class="form-control" placeholder="MM/YY"></div>
+          <div class="form-group"><label style="font-size:13.5px;font-weight:600;display:block;margin-bottom:8px">CVC</label><input type="text" class="form-control" placeholder="123"></div>
+        </div>
+        <div class="form-group"><label style="font-size:13.5px;font-weight:600;display:block;margin-bottom:8px">Billing Address</label><input type="text" class="form-control" placeholder="Your full address"></div>
+      </div>
+      <div id="upi-fields" style="display:none;text-align:center;padding:28px 0">
+        <i class="fas fa-qrcode" style="font-size:76px;color:var(--muted);margin-bottom:16px;display:block"></i>
+        <p style="font-size:14.5px;color:var(--muted)">Scan QR or pay via UPI app</p>
+        <p style="font-weight:700;color:var(--rose);margin-top:10px;font-size:17px" id="upi-id">pay@homemadecake</p>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px"><i class="fas fa-lock"></i> <span id="pay-btn-text">Pay Now</span></button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="confirmation-modal">
+  <div class="modal" style="text-align:center">
+    <div class="modal-head"><span class="modal-title">Order Confirmed!</span><button class="modal-close" onclick="closeModal('confirmation-modal')">&times;</button></div>
+    <div class="confirm-icon"><i class="fas fa-check-circle"></i></div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:8px">Thank you for your order!</h4>
+    <p style="color:var(--muted);margin-bottom:24px">Order <strong id="order-id-confirm">#000000</strong> placed successfully.</p>
+    <div style="background:var(--warm);border-radius:16px;padding:22px;text-align:left">
+      <div class="confirm-row"><span style="color:var(--muted)">Product</span><span id="confirm-product-name"></span></div>
+      <div class="confirm-row"><span style="color:var(--muted)">Price</span><span>₹ <span id="confirm-product-price"></span></span></div>
+      <div class="confirm-row"><span>Total</span><span>₹ <span id="confirm-total-price"></span></span></div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:22px" id="continue-shopping-btn"><i class="fas fa-store"></i> Continue Shopping</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="info-modal">
+  <div class="modal">
+    <div class="modal-head"><span class="modal-title" id="info-modal-title">Details</span><button class="modal-close" onclick="closeModal('info-modal')">&times;</button></div>
+    <img id="info-modal-image" src="" alt="" class="info-img">
+    <div id="info-modal-details"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="auth-modal">
+  <div class="modal">
+    <div class="modal-head"><span class="modal-title" id="auth-modal-title">Login</span><button class="modal-close" onclick="closeModal('auth-modal')">&times;</button></div>
+    <form id="login-form">
+      <div class="form-group"><label>Email Address</label><input type="email" class="form-control" placeholder="you@example.com" required></div>
+      <div class="form-group"><label>Password</label><input type="password" class="form-control" placeholder="••••••••" required></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-sign-in-alt"></i> Login</button>
+      <p style="text-align:center;margin-top:18px;font-size:14.5px;color:var(--muted)">Don't have an account? <a id="show-signup" style="color:var(--rose);font-weight:600;cursor:pointer">Sign Up</a></p>
+    </form>
+    <form id="signup-form" style="display:none">
+      <div class="form-group"><label>Full Name</label><input type="text" class="form-control" placeholder="Keya Naskar" required></div>
+      <div class="form-group"><label>Email Address</label><input type="email" class="form-control" placeholder="you@example.com" required></div>
+      <div class="form-group"><label>Password</label><input type="password" class="form-control" placeholder="••••••••" required></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-user-plus"></i> Create Account</button>
+      <p style="text-align:center;margin-top:18px;font-size:14.5px;color:var(--muted)">Already have an account? <a id="show-login" style="color:var(--rose);font-weight:600;cursor:pointer">Login</a></p>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<button class="cart-fab" id="cart-fab"><i class="fas fa-shopping-cart"></i><div class="cart-count" id="cart-count">0</div></button>
+
+<!-- ══════════ SCRIPT ══════════ -->
+<script>
+/* ═══════════════════════════════════════════
+   ██████╗  █████╗  ██████╗██╗  ██╗███████╗███╗   ██╗██████╗
+   ██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██╔════╝████╗  ██║██╔══██╗
+   ██████╔╝███████║██║     █████╔╝ █████╗  ██╔██╗ ██║██║  ██║
+   ██╔══██╗██╔══██║██║     ██╔═██╗ ██╔══╝  ██║╚██╗██║██║  ██║
+   ██████╔╝██║  ██║╚██████╗██║  ██╗███████╗██║ ╚████║██████╔╝
+   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝
+   All data driven by Admin Dashboard via localStorage
+   Key prefix: hmc_
+═══════════════════════════════════════════ */
+
+/* ── DEFAULT DATA (seeded if admin not yet set up) ── */
+const DEFAULTS = {
+  products:[
+    {id:'B001',name:'Classic Vanilla Bean',price:799,category:'birthday',badge:'Best Seller',imageUrl:'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80',description:'Light vanilla sponge layered with smooth vanilla buttercream and fresh berries.',available:true,stock:8},
+    {id:'C002',name:'Chocolate Decadence',price:950,category:'birthday',badge:'New',imageUrl:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80',description:'Rich dark chocolate cake with silky ganache glaze and chocolate shavings.',available:true,stock:5},
+    {id:'W003',name:'Elegant Rose Tier',price:2999,category:'wedding',badge:'Premium',imageUrl:'https://images.unsplash.com/photo-1519766580219-0e797801d36b?w=600&q=80',description:'Two-tier almond cake with delicate floral frosting, perfect for weddings.',available:true,stock:3},
+    {id:'S004',name:'Mango Delight',price:850,category:'seasonal',badge:'Seasonal',imageUrl:'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80',description:'Fresh Alphonso mango mousse on a light coconut sponge — summer special.',available:true,stock:2},
+    {id:'CC05',name:'Red Velvet Cupcakes (6)',price:450,category:'cupcakes',badge:'',imageUrl:'https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80',description:'Moist red velvet cupcakes crowned with tangy cream cheese frosting.',available:true,stock:12},
+    {id:'B006',name:'Black Forest Dream',price:899,category:'birthday',badge:'',imageUrl:'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=600&q=80',description:'Chocolate sponge layers with whipped cream and plump dark cherries.',available:true,stock:0},
+  ],
+  categories:[
+    {id:'birthday',name:'Birthday',visible:true},{id:'wedding',name:'Wedding',visible:true},
+    {id:'seasonal',name:'Seasonal',visible:true},{id:'cupcakes',name:'Cupcakes',visible:true},
+  ],
+  hero:[
+    {id:1,caption:'Chocolate Decadence',imageUrl:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&q=80',order:0,active:true},
+    {id:2,caption:'Elegant Wedding Tier',imageUrl:'https://images.unsplash.com/photo-1519766580219-0e797801d36b?w=700&q=80',order:1,active:true},
+    {id:3,caption:'Fresh Fruit Tart',imageUrl:'https://images.unsplash.com/photo-1562440102-87693d0a1d4b?w=700&q=80',order:2,active:true},
+    {id:4,caption:'Funfetti Birthday Bash',imageUrl:'https://images.unsplash.com/photo-1606983360176-a7114893e8c9?w=700&q=80',order:3,active:true},
+  ],
+  settings:{
+    businessName:'Home Made Cake',ownerName:'Keya Naskar',
+    tagline:'Fresh. Hygienic. Delightful.',
+    heroHeading:'Cakes Made with Love for Every Occasion',
+    phone:'+91 9600000000',email:'info@homemadecake.in',
+    addr1:'Suk Pukuria, Beonta, K.L.C. (Hatisala)',addr2:'South 24 Parganas – 743502',
+    hrsOpen:'9 AM',hrsClose:'8 PM',sunOpen:'10 AM',sunClose:'6 PM',
+    toggles:{shop:true,custom:true,newsletter:true,cod:true,upi:true},
+    stats:[{num:'100%',lbl:'Home Baked'},{num:'6+',lbl:'Cake Varieties'},{num:'50+',lbl:'Happy Customers'},{num:'2+',lbl:'Custom Orders'}],
+  },
+};
+
+/* ── STORAGE HELPERS ── */
+function lsGet(k){try{const v=localStorage.getItem('hmc_'+k);return v?JSON.parse(v):null;}catch{return null;}}
+function lsSave(k,v){try{localStorage.setItem('hmc_'+k,JSON.stringify(v));}catch(e){console.warn('Storage error',e);}}
+
+/* Seed defaults only if admin hasn't set data yet */
+function seedDefaults(){
+  Object.keys(DEFAULTS).forEach(k=>{if(!lsGet(k))lsSave(k,DEFAULTS[k]);});
+}
+
+/* ── LIVE DATA GETTERS (always fresh from LS) ── */
+const DB = {
+  products:  ()=> (lsGet('products') ||DEFAULTS.products) .filter(p=>p.available!==false),
+  allProds:  ()=> lsGet('products')  ||DEFAULTS.products,
+  cats:      ()=> (lsGet('categories')||DEFAULTS.categories).filter(c=>c.visible!==false),
+  orders:    ()=> lsGet('orders')    ||[],
+  custom:    ()=> lsGet('custom')    ||[],
+  hero:      ()=> (lsGet('hero')     ||DEFAULTS.hero).filter(s=>s.active!==false).sort((a,b)=>a.order-b.order),
+  settings:  ()=> lsGet('settings') ||DEFAULTS.settings,
+};
+
+/* ── WRITE BACK TO ADMIN ── */
+function pushOrder(data){
+  const arr=lsGet('orders')||[];
+  arr.push({...data,date:new Date().toLocaleDateString('en-IN')});
+  lsSave('orders',arr);
+}
+function pushCustomOrder(data){
+  const arr=lsGet('custom')||[];
+  arr.push({...data,date:new Date().toLocaleDateString('en-IN'),status:'Pending'});
+  lsSave('custom',arr);
+}
+function pushMessage(data){
+  const arr=lsGet('messages')||[];
+  arr.push({...data,id:Date.now(),date:new Date().toLocaleDateString('en-IN'),read:false});
+  lsSave('messages',arr);
+}
+
+/* ═══════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════ */
+let _toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(()=>t.classList.remove('show'),3400);
+}
+window.showToast=showToast;
+
+/* ═══════════════════════════════════════════
+   MODALS
+═══════════════════════════════════════════ */
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+window.closeModal=closeModal;
+document.querySelectorAll('.modal-backdrop').forEach(bd=>{
+  bd.addEventListener('click',e=>{if(e.target===bd)bd.classList.remove('open');});
+});
+
+/* ═══════════════════════════════════════════
+   APPLY SETTINGS — syncs all admin settings to DOM
+═══════════════════════════════════════════ */
+function applySettings(){
+  const s=DB.settings();
+
+  /* ── Branding ── */
+  const bName=s.businessName||'Home Made Cake';
+  document.getElementById('page-title').textContent=bName+' — by '+(s.ownerName||'Keya Naskar');
+  document.getElementById('hdr-brand-name').textContent=bName;
+  document.getElementById('hdr-brand-sub').textContent='by '+(s.ownerName||'Keya Naskar')+' · South 24 Pgs. · 743502';
+  document.getElementById('footer-brand-name').textContent=bName;
+  document.getElementById('footer-about').textContent='Creating delicious, handcrafted cakes for all your special occasions. Made with love and the finest ingredients in South 24 Parganas.';
+  document.getElementById('footer-copy').textContent='© 2025 '+bName+' — by '+(s.ownerName||'Keya Naskar')+'. All rights reserved.';
+
+  /* ── Hero heading ── */
+  const heading=s.heroHeading||'Cakes Made with Love for Every Occasion';
+  const hEl=document.getElementById('hero-heading');
+  if(hEl){
+    const w=heading.split(' ');const m=Math.floor(w.length/2);
+    hEl.innerHTML=w.slice(0,m).join(' ')+' <em>'+w[m]+'</em><br>'+w.slice(m+1).join(' ');
+  }
+
+  /* ── Stats strip ── */
+  if(s.stats&&s.stats.length){
+    const strip=document.getElementById('stats-strip');
+    strip.innerHTML=s.stats.map(st=>`
+      <div class="stat-item">
+        <div class="stat-num">${st.num}</div>
+        <div class="stat-lbl">${st.lbl}</div>
+      </div>`).join('');
+  }
+
+  /* ── Contact info ── */
+  const phoneEl=document.getElementById('contact-phone-link');
+  if(phoneEl){phoneEl.textContent=s.phone||'+91 9600000000';phoneEl.href='tel:'+(s.phone||'').replace(/\s/g,'');}
+  const emailEl=document.getElementById('contact-email-link');
+  if(emailEl){emailEl.textContent=s.email||'info@homemadecake.in';emailEl.href='mailto:'+s.email;}
+  const addrEl=document.getElementById('contact-addr');
+  if(addrEl)addrEl.innerHTML=(s.addr1||'')+'<br>'+(s.addr2||'');
+  const wdEl=document.getElementById('hrs-weekday');
+  if(wdEl)wdEl.textContent=(s.hrsOpen||'9 AM')+' – '+(s.hrsClose||'8 PM');
+  const sunEl=document.getElementById('hrs-sunday');
+  if(sunEl)sunEl.textContent=(s.sunOpen||'10 AM')+' – '+(s.sunClose||'6 PM');
+
+  /* ── Footer contact ── */
+  const fAddr=document.getElementById('footer-addr');
+  if(fAddr)fAddr.innerHTML='<i class="fas fa-map-marker-alt"></i>'+(s.addr1||'')+', '+(s.addr2||'');
+  const fPhone=document.getElementById('footer-phone');
+  if(fPhone){fPhone.textContent=s.phone||'+91 9600000000';fPhone.href='tel:'+(s.phone||'').replace(/\s/g,'');}
+  const fEmail=document.getElementById('footer-email');
+  if(fEmail){fEmail.textContent=s.email||'info@homemadecake.in';fEmail.href='mailto:'+s.email;}
+
+  /* ── UPI ID in payment modal ── */
+  const upiId=document.getElementById('upi-id');
+  if(upiId&&s.email)upiId.textContent=s.email.split('@')[0]+'@upi';
+
+  /* ── Feature toggles ── */
+  const t=s.toggles||{};
+
+  // Shop page
+  const shopPage=document.getElementById('shop-page');
+  const navShop=document.getElementById('nav-shop');
+  const mobShop=document.getElementById('mob-nav-shop');
+  if(t.shop===false){
+    if(shopPage)shopPage.style.display='none';
+    if(navShop)navShop.style.display='none';
+    if(mobShop)mobShop.style.display='none';
+  } else {
+    if(navShop)navShop.style.display='';
+    if(mobShop)mobShop.style.display='';
+  }
+
+  // Custom orders page
+  const customPage=document.getElementById('custom-page');
+  const navCustom=document.getElementById('nav-custom');
+  const mobCustom=document.getElementById('mob-nav-custom');
+  const customCTA=document.getElementById('custom-cta-btn');
+  if(t.custom===false){
+    if(customPage)customPage.style.display='none';
+    if(navCustom)navCustom.style.display='none';
+    if(mobCustom)mobCustom.style.display='none';
+    if(customCTA)customCTA.style.display='none';
+  } else {
+    if(navCustom)navCustom.style.display='';
+    if(mobCustom)mobCustom.style.display='';
+    if(customCTA)customCTA.style.display='';
+  }
+
+  // Newsletter
+  const nl=document.getElementById('newsletter-section');
+  if(nl)nl.style.display=t.newsletter===false?'none':'block';
+
+  // Payment methods
+  const codM=document.getElementById('cod-method');
+  if(codM)codM.style.display=t.cod===false?'none':'block';
+  const upiM=document.getElementById('upi-method');
+  if(upiM)upiM.style.display=t.upi===false?'none':'block';
+}
+
+/* ═══════════════════════════════════════════
+   HERO SLIDER — fully driven by admin hero data
+═══════════════════════════════════════════ */
+let sliderTimer, sliderCur=0, sliderN=0;
+
+function buildSlider(){
+  const slides=DB.hero();
+  const track=document.getElementById('hero-slides');
+  const dotsWrap=document.getElementById('slide-dots');
+  if(!slides.length||!track)return;
+
+  track.innerHTML=slides.map(s=>`
+    <div class="slide">
+      <img src="${s.imageUrl}" alt="${s.caption}" loading="lazy">
+      <div class="slide-caption">${s.caption}</div>
+    </div>`).join('');
+
+  dotsWrap.innerHTML='';
+  sliderN=slides.length;sliderCur=0;
+  slides.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='slide-dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Slide '+(i+1));
+    d.onclick=()=>slideTo(i,true);
+    dotsWrap.appendChild(d);
+  });
+
+  clearInterval(sliderTimer);
+  sliderTimer=setInterval(()=>slideTo((sliderCur+1)%sliderN,false),4200);
+
+  document.getElementById('slide-prev').onclick=()=>slideTo((sliderCur-1+sliderN)%sliderN,true);
+  document.getElementById('slide-next').onclick=()=>slideTo((sliderCur+1)%sliderN,true);
+}
+
+function slideTo(n,manual){
+  sliderCur=n;
+  document.getElementById('hero-slides').style.transform=`translateX(${-100*n}%)`;
+  document.querySelectorAll('.slide-dot').forEach((d,i)=>d.classList.toggle('active',i===n));
+  if(manual){clearInterval(sliderTimer);sliderTimer=setInterval(()=>slideTo((sliderCur+1)%sliderN,false),4200);}
+}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+function navTo(pageId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target=document.getElementById(pageId+'-page');
+  if(target)target.classList.add('active');
+  document.querySelectorAll('.nav-link[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===pageId));
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  if(pageId==='orders')loadOrdersPage();
+  if(pageId==='shop')refreshShop();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+window.navTo=navTo;
+
+document.addEventListener('click',e=>{
+  const nb=e.target.closest('.nav-link[data-page]');
+  if(nb)navTo(nb.dataset.page);
+});
+
+const ham=document.getElementById('hamburger');
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  document.getElementById('mobile-drawer').classList.toggle('open');
+});
+
+/* ═══════════════════════════════════════════
+   AUTH
+═══════════════════════════════════════════ */
+function openAuth(mode){
+  document.getElementById('auth-modal-title').textContent=mode==='login'?'Login':'Create Account';
+  document.getElementById('login-form').style.display=mode==='login'?'block':'none';
+  document.getElementById('signup-form').style.display=mode==='signup'?'block':'none';
+  openModal('auth-modal');
+}
+document.getElementById('login-btn').onclick=()=>openAuth('login');
+document.getElementById('signup-btn').onclick=()=>openAuth('signup');
+document.getElementById('login-btn-m').onclick=()=>openAuth('login');
+document.getElementById('signup-btn-m').onclick=()=>openAuth('signup');
+document.getElementById('show-signup').onclick=()=>openAuth('signup');
+document.getElementById('show-login').onclick=()=>openAuth('login');
+document.getElementById('login-form').addEventListener('submit',e=>{e.preventDefault();showToast('Login coming soon!');closeModal('auth-modal');});
+document.getElementById('signup-form').addEventListener('submit',e=>{e.preventDefault();showToast('Sign up coming soon!');closeModal('auth-modal');});
+
+/* ═══════════════════════════════════════════
+   PRODUCT CARD HTML
+═══════════════════════════════════════════ */
+function productCardHTML(p){
+  const safe=JSON.stringify(p).replace(/'/g,'&#39;');
+  const outOfStock=(p.stock||0)===0;
+  return `<div class="product-card">
+    ${p.badge?`<div class="p-badge">${p.badge}</div>`:''}
+    <div class="p-img-wrap">
+      <img src="${p.imageUrl}" alt="${p.name}" class="p-img" loading="lazy" onerror="this.src='https://placehold.co/400x220/f7e0d8/c4576b?text=🎂'">
+    </div>
+    <div class="p-body">
+      <div class="p-name">${p.name}</div>
+      <div class="p-id">ID: ${p.id}</div>
+      <div class="p-desc">${p.description}</div>
+      <div class="p-footer">
+        <div class="p-price">₹ ${Number(p.price).toLocaleString('en-IN')}</div>
+        <div class="p-actions">
+          <button class="btn btn-outline btn-sm" onclick='openInfoProduct(${safe})'><i class="fas fa-eye"></i></button>
+          ${outOfStock
+            ? `<span class="out-of-stock-badge"><i class="fas fa-times-circle"></i> Out of Stock</span>`
+            : `<button class="btn btn-primary btn-sm" onclick='openPaymentModal(${safe})'><i class="fas fa-bolt"></i> Buy</button>`
           }
-        });
-      }
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
 
-      function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-        document.getElementById(`${pageId}-page`).classList.add('active');
-        document.querySelectorAll('.nav-btn[data-page]').forEach(button => {
-          button.classList.toggle('active', button.getAttribute('data-page') === pageId);
-        });
-        if (pageId === 'orders') { loadMyOrdersPage(); } 
-        else if (pageId === 'custom') { updateCustomOrderCount(); }
-        else if (pageId === 'home') { loadFeaturedProducts(); }
-        const nav = document.getElementById('main-nav');
-        if (nav.classList.contains('active')) {
-          nav.classList.remove('active');
-          const bars = document.querySelectorAll('.hamburger .bar');
-          bars[0].style.transform = 'none'; bars[1].style.opacity = '1'; bars[2].style.transform = 'none';
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      
-      // --- HOME PAGE SLIDER ---
-      function initSlider() {
-        const slider = document.getElementById('home-cake-slider');
-        if (!slider) return; 
-        const slides = slider.querySelectorAll('.cake-slide');
-        const totalSlides = slides.length;
-        let currentIndex = 0;
-        if (totalSlides <= 1) return; 
-        setInterval(() => {
-          currentIndex = (currentIndex + 1) % totalSlides; 
-          slider.style.transform = `translateX(${currentIndex * -100}%)`;
-        }, 3000);
-      }
+function renderProductGrid(list,containerId){
+  const g=document.getElementById(containerId);
+  if(!g)return;
+  g.innerHTML=list.length
+    ?list.map(productCardHTML).join('')
+    :'<p style="color:var(--muted);padding:20px 0;grid-column:1/-1;text-align:center">No cakes available in this category right now.</p>';
+}
 
-      // --- DYNAMIC SHOP & HOMEPAGE (Now uses shared data) ---
-      function loadShop() {
-        // Load data from localStorage (shared with admin dashboard)
-        allProducts = loadProducts();
-        allCategories = loadCategories();
-        
-        renderCategories();
-        renderProducts(allProducts);
-        loadFeaturedProducts();
-      }
+/* ═══════════════════════════════════════════
+   SHOP — filter bar + grid, all from admin data
+═══════════════════════════════════════════ */
+function buildShop(){
+  const bar=document.getElementById('filter-bar');
+  const cats=DB.cats();
+  bar.innerHTML=`<button class="filter-chip active" data-filter="all">All Cakes</button>`
+    +cats.map(c=>`<button class="filter-chip" data-filter="${c.id}">${c.name}</button>`).join('');
+  bar.addEventListener('click',e=>{
+    const chip=e.target.closest('.filter-chip');if(!chip)return;
+    bar.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active'));
+    chip.classList.add('active');
+    const f=chip.dataset.filter;
+    const prods=DB.products();
+    renderProductGrid(f==='all'?prods:prods.filter(p=>p.category===f),'products-grid');
+  });
+  renderProductGrid(DB.products(),'products-grid');
 
-      function renderCategories() {
-        const container = document.getElementById('filter-options-container');
-        container.innerHTML = '';
-        // Add "All" filter
-        container.innerHTML += `<button class="filter-btn active" data-filter="all">All Cakes</button>`;
-        
-        allCategories.forEach((category) => {
-          container.innerHTML += `
-            <button class="filter-btn" data-filter="${category.id}">
-              ${category.name}
-            </button>
-          `;
-        });
-        initFilters();
-      }
+  // Footer categories
+  const fc=document.getElementById('footer-cats');
+  if(fc)fc.innerHTML=DB.cats().map(c=>`<li><a onclick="navTo('shop')"><i class="fas fa-chevron-right"></i>${c.name}</a></li>`).join('');
+}
 
-      function renderProducts(products) {
-        const container = document.getElementById('products-grid');
-        container.innerHTML = '';
-        if (products.length === 0) {
-          container.innerHTML = '<p>No cakes found in this category.</p>';
-          return;
-        }
-        products.forEach(product => {
-          container.innerHTML += `
-            <div class="product-card" data-category="${product.category}">
-              ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-              <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
-              <div class="product-info">
-                <div class="product-title">${product.name}</div>
-                <div class="product-id">ID: ${product.id}</div>
-                <div class="product-description">${product.description}</div>
-                <div class="product-price">₹ ${product.price}</div>
-                <div class="product-actions">
-                  <button class="btn btn-secondary view-product-btn" data-image="${product.imageUrl}" data-product='${JSON.stringify(product)}'><i class="fas fa-eye"></i> View</button>
-                  <button class="btn btn-buy buy-btn" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.imageUrl}">
-                    <i class="fas fa-shopping-cart"></i> Buy
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-        });
-        initShopDynamicButtons();
-      }
-      
-      function loadFeaturedProducts() {
-        const container = document.getElementById('featured-products-grid');
-        if (!container) return;
-        container.innerHTML = '';
-        // Get 4 random products or all if less than 4
-        const featured = allProducts.length <= 4 ? allProducts : [...allProducts].sort(() => 0.5 - Math.random()).slice(0, 4);
-        featured.forEach(product => {
-          container.innerHTML += `
-            <div class="product-card" data-category="${product.category}">
-              ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-              <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
-              <div class="product-info">
-                <div class="product-title">${product.name}</div>
-                <div class="product-price">₹ ${product.price}</div>
-                <div class="product-actions">
-                  <button class="btn btn-secondary view-product-btn" data-image="${product.imageUrl}" data-product='${JSON.stringify(product)}'><i class="fas fa-eye"></i> View</button>
-                  <button class="btn btn-buy buy-btn" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.imageUrl}">
-                    <i class="fas fa-shopping-cart"></i> Buy
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-        });
-        initShopDynamicButtons();
-      }
+function refreshShop(){
+  // Re-render products in case admin changed stock/availability
+  const bar=document.getElementById('filter-bar');
+  const active=bar.querySelector('.filter-chip.active');
+  const f=active?active.dataset.filter:'all';
+  const prods=DB.products();
+  renderProductGrid(f==='all'?prods:prods.filter(p=>p.category===f),'products-grid');
+}
 
-      // --- SHOP AND PAYMENT ---
-      function initShopDynamicButtons() {
-        const buyButtons = document.querySelectorAll('.buy-btn');
-        const paymentModal = document.getElementById('payment-modal');
-        
-        // Remove old listeners to prevent duplicates
-        buyButtons.forEach(button => {
-          button.replaceWith(button.cloneNode(true));
-        });
-        
-        // Add new listeners
-        document.querySelectorAll('.buy-btn').forEach(button => {
-          button.addEventListener('click', () => {
-            const name = button.getAttribute('data-name');
-            const price = button.getAttribute('data-price');
-            const image = button.getAttribute('data-image');
-            document.getElementById('payment-product-name').textContent = name;
-            document.getElementById('payment-product-price').textContent = price;
-            document.getElementById('payment-product-image').value = image;
-            
-            // Clear previous customer data
-            document.getElementById('payment-customer-name').value = '';
-            document.getElementById('payment-customer-phone').value = '';
-            
-            paymentModal.style.display = 'flex';
-          });
-        });
-      }
+/* ═══════════════════════════════════════════
+   INFO MODAL
+═══════════════════════════════════════════ */
+function openInfoModal(title,imageUrl,det){
+  document.getElementById('info-modal-title').textContent=title;
+  document.getElementById('info-modal-image').src=imageUrl;
+  document.getElementById('info-modal-details').innerHTML=Object.entries(det)
+    .map(([k,v])=>`<div class="info-detail-row"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`).join('');
+  openModal('info-modal');
+}
+window.openInfoProduct=function(p){
+  const s=DB.settings();
+  openInfoModal(p.name,p.imageUrl,{
+    Description:p.description,
+    Category:p.category,
+    Price:'₹ '+Number(p.price).toLocaleString('en-IN'),
+    'In Stock':(p.stock||0)>0?`${p.stock} available`:'Out of Stock',
+    ...(p.badge?{Badge:p.badge}:{}),
+  });
+};
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('.view-details-btn');
+  if(!btn)return;
+  try{openInfoModal(btn.dataset.title||'Details',btn.dataset.image||'',JSON.parse(btn.dataset.details||'{}'));}catch{}
+});
 
-      function initPaymentModal() {
-        const paymentModal = document.getElementById('payment-modal');
-        const confirmationModal = document.getElementById('confirmation-modal');
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        const paymentForm = document.getElementById('payment-form');
-        const cardFields = document.getElementById('card-payment-fields');
-        const upiFields = document.getElementById('upi-payment-fields');
-        const payBtnText = document.getElementById('pay-btn-text');
+/* ═══════════════════════════════════════════
+   PAYMENT MODAL — admin controls which methods shown
+═══════════════════════════════════════════ */
+window.openPaymentModal=function(p){
+  document.getElementById('pay-product-name').textContent=p.name;
+  document.getElementById('pay-product-price').textContent=Number(p.price).toLocaleString('en-IN');
+  document.getElementById('pay-product-image').value=p.imageUrl||'';
+  // reset to card
+  document.querySelectorAll('.pay-method').forEach(o=>o.classList.remove('selected'));
+  const first=document.querySelector('.pay-method:not([style*="none"])');
+  if(first)first.classList.add('selected');
+  document.getElementById('card-fields').style.display='block';
+  document.getElementById('upi-fields').style.display='none';
+  document.getElementById('pay-btn-text').textContent='Pay Now';
+  openModal('payment-modal');
+};
 
-        paymentOptions.forEach(option => {
-          option.addEventListener('click', () => {
-            paymentOptions.forEach(o => o.classList.remove('selected'));
-            option.classList.add('selected');
-            const method = option.getAttribute('data-method');
-            const cardInputs = cardFields.querySelectorAll('input');
-            cardFields.style.display = method === 'card' ? 'block' : 'none';
-            upiFields.style.display = method === 'upi' ? 'block' : 'none';
-            cardInputs.forEach(input => input.required = (method === 'card'));
-            if(method === 'cod') payBtnText.textContent = 'Place Order';
-            else if (method === 'upi') payBtnText.textContent = 'Confirm Payment';
-            else payBtnText.textContent = 'Pay Now';
-          });
-        });
+document.querySelectorAll('.pay-method').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    document.querySelectorAll('.pay-method').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    const m=opt.dataset.method;
+    document.getElementById('card-fields').style.display=m==='card'?'block':'none';
+    document.getElementById('upi-fields').style.display=m==='upi'?'block':'none';
+    document.getElementById('pay-btn-text').textContent=m==='cod'?'Place Order':m==='upi'?'Confirm Payment':'Pay Now';
+  });
+});
 
-        paymentForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const customerName = document.getElementById('payment-customer-name').value;
-          const customerPhone = document.getElementById('payment-customer-phone').value;
-          
-          if (!customerName || !customerPhone) {
-            showToast('Please enter your name and phone number');
-            return;
-          }
-          
-          const newOrderData = {
-            product: document.getElementById('payment-product-name').textContent,
-            price: document.getElementById('payment-product-price').textContent,
-            paymentMethod: document.querySelector('.payment-option.selected').getAttribute('data-method').toUpperCase(),
-            imageUrl: document.getElementById('payment-product-image').value,
-            customerName: customerName,
-            customerPhone: customerPhone,
-            status: 'Pending'
-          };
-          
-          try {
-            // Simulate a successful order response
-            await new Promise(resolve => setTimeout(resolve, 500));
-            
-            const createdOrder = {
-              id: 'MOCK' + Math.floor(Math.random() * 90000 + 10000),
-              date: new Date().toLocaleDateString(),
-              ...newOrderData 
-            };
-            
-            // Save order to localStorage (for admin dashboard)
-            const existingOrders = JSON.parse(localStorage.getItem('hmc_shop_orders')) || [];
-            existingOrders.push(createdOrder);
-            localStorage.setItem('hmc_shop_orders', JSON.stringify(existingOrders));
-            
-            paymentModal.style.display = 'none';
-            document.getElementById('order-id-confirm').textContent = '#' + createdOrder.id;
-            document.getElementById('confirm-product-name').textContent = createdOrder.product;
-            document.getElementById('confirm-product-price').textContent = createdOrder.price;
-            document.getElementById('confirm-total-price').textContent = createdOrder.price;
-            confirmationModal.style.display = 'flex';
-            showToast('Order placed successfully!');
-          } catch (error) {
-            console.error('Payment Error:', error);
-            showToast('Error placing order. Please try again.');
-          }
-        });
+document.getElementById('payment-form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=document.getElementById('payment-customer-name').value.trim();
+  const phone=document.getElementById('payment-customer-phone').value.trim();
+  if(!name||!phone){showToast('Please enter your name and phone number');return;}
+  await new Promise(r=>setTimeout(r,500));
+  const id='ORD'+Math.floor(Math.random()*90000+10000);
+  const prod=document.getElementById('pay-product-name').textContent;
+  const priceStr=document.getElementById('pay-product-price').textContent;
+  const priceNum=parseInt(priceStr.replace(/,/g,''))||0;
+  closeModal('payment-modal');
+  document.getElementById('order-id-confirm').textContent='#'+id;
+  document.getElementById('confirm-product-name').textContent=prod;
+  document.getElementById('confirm-product-price').textContent=priceStr;
+  document.getElementById('confirm-total-price').textContent=priceStr;
+  openModal('confirmation-modal');
+  // Push order to admin backend
+  pushOrder({
+    id,customerName:name,customerPhone:phone,
+    product:prod,price:priceNum,
+    imageUrl:document.getElementById('pay-product-image').value,
+    paymentMethod:(document.querySelector('.pay-method.selected')||{}).dataset?.method?.toUpperCase()||'COD',
+    status:'Pending',
+  });
+  cart.push({name:prod,price:priceNum});
+  document.getElementById('cart-count').textContent=cart.length;
+  showToast('Order placed successfully! 🎉');
+});
 
-        // Close ALL modals
-        document.querySelectorAll('.close-modal').forEach(button => {
-          button.addEventListener('click', () => {
-            document.querySelectorAll('.modal-backdrop').forEach(modal => { modal.style.display = 'none'; });
-          });
-        });
-        document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-          backdrop.addEventListener('click', (e) => {
-            if (e.target === backdrop) { backdrop.style.display = 'none'; }
-          });
-        });
-        document.getElementById('continue-shopping-btn').addEventListener('click', () => {
-          confirmationModal.style.display = 'none';
-          showPage('shop');
-        });
-      }
+document.getElementById('continue-shopping-btn').onclick=()=>{closeModal('confirmation-modal');navTo('shop');};
 
-      // --- AUTH MODAL FUNCTIONALITY ---
-      function initAuth() {
-        const authModal = document.getElementById('auth-modal');
-        const loginBtn = document.getElementById('login-btn');
-        const signupBtn = document.getElementById('signup-btn');
-        const loginForm = document.getElementById('login-form');
-        const signupForm = document.getElementById('signup-form');
-        const authTitle = document.getElementById('auth-modal-title');
-        const showSignup = document.getElementById('show-signup');
-        const showLogin = document.getElementById('show-login');
+/* ═══════════════════════════════════════════
+   MY ORDERS — reads from admin backend
+═══════════════════════════════════════════ */
+function loadOrdersPage(){
+  const shopOrders=DB.orders();
+  const customOrders=DB.custom();
 
-        loginBtn.addEventListener('click', () => {
-          authModal.style.display = 'flex';
-          loginForm.style.display = 'block';
-          signupForm.style.display = 'none';
-          authTitle.textContent = 'Login';
-        });
-        signupBtn.addEventListener('click', () => {
-          authModal.style.display = 'flex';
-          loginForm.style.display = 'none';
-          signupForm.style.display = 'block';
-          authTitle.textContent = 'Sign Up';
-        });
-        showSignup.addEventListener('click', (e) => {
-          e.preventDefault();
-          loginForm.style.display = 'none';
-          signupForm.style.display = 'block';
-          authTitle.textContent = 'Sign Up';
-        });
-        showLogin.addEventListener('click', (e) => {
-          e.preventDefault();
-          loginForm.style.display = 'block';
-          signupForm.style.display = 'none';
-          authTitle.textContent = 'Login';
-        });
-        loginForm.addEventListener('submit', (e) => { e.preventDefault(); showToast('Login system not built yet.'); authModal.style.display = 'none'; });
-        signupForm.addEventListener('submit', (e) => { e.preventDefault(); showToast('Sign up system not built yet.'); authModal.style.display = 'none'; });
-      }
+  /* Collection orders */
+  const sc=document.getElementById('shop-orders-container');
+  sc.innerHTML=shopOrders.length?shopOrders.slice().reverse().map(o=>`
+    <div class="order-card">
+      <div class="order-head">
+        <div><div class="order-id">Order #${o.id}</div><div class="order-date">Placed on ${o.date}</div></div>
+        <span class="status-badge status-${(o.status||'pending').toLowerCase()}">${o.status||'Pending'}</span>
+      </div>
+      <div class="order-body">
+        <img src="${o.imageUrl||'https://placehold.co/92x92/f7e0d8/c4576b?text=🎂'}" alt="${o.product}" class="order-thumb" onerror="this.src='https://placehold.co/92x92/f7e0d8/c4576b?text=🎂'">
+        <div>
+          <div class="order-product">${o.product}</div>
+          <div class="order-price-lbl">₹ ${Number(o.price).toLocaleString('en-IN')}</div>
+          <div class="order-meta">Payment: ${o.paymentMethod||'—'}</div>
+        </div>
+      </div>
+      <div class="order-foot">
+        <div class="order-total">Total: ₹ ${Number(o.price).toLocaleString('en-IN')}</div>
+        <button class="btn btn-outline btn-sm view-details-btn"
+          data-title="Order #${o.id}" data-image="${o.imageUrl||''}"
+          data-details='${JSON.stringify({"Order ID":o.id,"Date":o.date,"Status":o.status,"Product":o.product,"Total":"₹ "+o.price})}'>
+          <i class="fas fa-info-circle"></i> Details
+        </button>
+      </div>
+    </div>`).join('')
+  :'<div style="text-align:center;padding:32px 0;color:var(--muted)"><i class="fas fa-inbox" style="font-size:36px;margin-bottom:12px;display:block;opacity:.35"></i>No orders yet. Start shopping!</div>';
 
-      // --- "MY ORDERS" PAGE (Both Sections - Now uses mock data) ---
-      function loadMyOrdersPage() {
-        renderShopOrders();
-        renderCustomOrders();
-      }
-      
-      function renderShopOrders() {
-        const container = document.getElementById('shop-orders-container');
-        const mockOrders = [
-            { id: 'S1001', date: '2025-10-20', product: 'Chocolate Decadence', price: 950, imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80', paymentMethod: 'CARD', status: 'Completed' },
-            { id: 'S1002', date: '2025-10-25', product: 'Classic Vanilla Bean', price: 799, imageUrl: 'https://placehold.co/600x400/b94e6b/ffffff?text=Vanilla+Bean', paymentMethod: 'COD', status: 'Processing' }
-        ];
+  /* Custom orders */
+  const cc=document.getElementById('custom-orders-container');
+  cc.innerHTML=customOrders.length?customOrders.slice().reverse().map(o=>`<tr>
+    <td><strong>${o.id}</strong></td>
+    <td>${o.date}</td>
+    <td>${o.type||'—'}</td>
+    <td><span class="status-badge status-${(o.status||'pending').toLowerCase()}">${o.status||'Pending'}</span></td>
+    <td>
+      <button class="btn btn-outline btn-sm view-details-btn"
+        data-title="Custom Order #${o.id}"
+        data-image="https://images.unsplash.com/photo-1599408865610-85f26620f89b?w=600&q=80"
+        data-details='${JSON.stringify({"Order ID":o.id,"Date":o.date,"Type":o.type,"Size":o.size||"—","Flavour":o.flavor||"—","Filling":o.filling||"—","Customer":o.customerName,"Status":o.status})}'>
+        <i class="fas fa-eye"></i> Details
+      </button>
+    </td>
+  </tr>`).join('')
+  :'<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">No custom orders yet.</td></tr>';
 
-        if (mockOrders.length === 0) {
-          container.innerHTML = '<p>You have no past collection orders.</p>';
-          return;
-        }
-        container.innerHTML = '';
-        mockOrders.forEach(order => {
-          const statusClass = order.status.toLowerCase();
-          container.innerHTML += `
-            <div class="order-card">
-              <div class="order-header">
-                <div> <div class="order-id">Order #${order.id}</div> <div class="order-date">Placed on ${order.date}</div> </div>
-                <div class="order-status status-${statusClass}">${order.status}</div>
-              </div>
-              <div class="order-details">
-                <img src="${order.imageUrl}" alt="${order.product}" class="order-image">
-                <div>
-                  <div class="order-product-title">${order.product}</div>
-                  <div class="order-price">₹ ${order.price}</div>
-                  <div>Payment: ${order.paymentMethod}</div>
-                </div>
-              </div>
-              <div class="order-footer">
-                <div class="order-total">Total: ₹ ${order.price}</div>
-                <button class="btn btn-secondary view-details-btn" data-title="Order Details" data-image="${order.imageUrl}"
-                        data-details='${JSON.stringify({ "Order ID": order.id, "Date": order.date, "Status": order.status, "Product": order.product, "Total": `₹ ${order.price}` })}'>
-                  View Details
-                </button>
-              </div>
-            </div>
-          `;
-        });
-      }
-      
-      function renderCustomOrders() {
-        const container = document.getElementById('custom-orders-container');
-        const mockCustomOrders = [
-            { id: 'C2001', date: '2025-09-15', type: 'Wedding Cake', size: '10 inches', flavor: 'Almond', filling: 'Buttercream', design: 'Simple tiered design with fresh flowers.', customerName: 'Rina D.', customerPhone: '960...00', status: 'Completed' },
-            { id: 'C2002', date: '2025-11-05', type: 'Birthday Cake', size: '6 inches', flavor: 'Red Velvet', filling: 'Cream Cheese', design: 'Space theme for a 5-year-old boy.', customerName: 'Amit S.', customerPhone: '960...01', status: 'Pending' }
-        ];
+  /* Update count on custom page */
+  const cntEl=document.getElementById('custom-order-count');
+  if(cntEl)cntEl.textContent=customOrders.length;
+}
 
-        if (mockCustomOrders.length === 0) {
-            container.innerHTML = '<tr><td colspan="5">You have no past custom orders.</td></tr>';
-            return;
-        }
-        container.innerHTML = '';
-        mockCustomOrders.forEach(order => {
-            const statusClass = order.status.toLowerCase();
-            const details = { ...order };
-            delete details.design;
-            container.innerHTML += `
-                <tr>
-                    <td>${order.id}</td>
-                    <td>${order.date}</td>
-                    <td>${order.type}</td>
-                    <td><span class="order-status status-${statusClass}">${order.status}</span></td>
-                    <td>
-                        <button class="btn btn-secondary view-details-btn"
-                            data-title="Custom Order Details"
-                            data-image="https://images.unsplash.com/photo-1599408865610-85f26620f89b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80"
-                            data-details='${JSON.stringify({ ...details, "Design Details": order.design.substring(0, 30) + "..." })}'>
-                            View Details
-                        </button>
-                    </td>
-                </tr>
-            `;
-        });
-      }
+/* ═══════════════════════════════════════════
+   FORMS
+═══════════════════════════════════════════ */
+document.getElementById('custom-order-form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=document.getElementById('customer-name').value.trim();
+  const phone=document.getElementById('customer-phone').value.trim();
+  if(!name||!phone){showToast('Please enter your name and phone number');return;}
+  await new Promise(r=>setTimeout(r,500));
+  pushCustomOrder({
+    id:'C'+Date.now().toString(36).toUpperCase(),
+    customerName:name,customerPhone:phone,
+    type:document.getElementById('cake-type').value,
+    size:document.getElementById('cake-size').value,
+    flavor:document.getElementById('cake-flavor').value,
+    filling:document.getElementById('cake-filling').value,
+    design:document.getElementById('cake-design').value,
+    deliveryDate:document.getElementById('delivery-date').value,
+  });
+  const cnt=DB.custom().length;
+  const cntEl=document.getElementById('custom-order-count');
+  if(cntEl)cntEl.textContent=cnt;
+  e.target.reset();
+  showToast('Custom order submitted! We\'ll contact you soon. 🎂');
+});
 
-      // --- CUSTOM ORDERS (Now simulated) ---
-      async function initCustomOrders() {
-        // Since we are not fetching the count, we use a mock count
-        updateCustomOrderCount(2); 
+document.getElementById('contact-form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  await new Promise(r=>setTimeout(r,400));
+  pushMessage({
+    name:document.getElementById('contact-name').value,
+    email:document.getElementById('contact-email-inp').value,
+    phone:document.getElementById('contact-phone-inp').value,
+    subject:document.getElementById('contact-subject').value,
+    message:document.getElementById('contact-message').value,
+  });
+  showToast('Message sent! We\'ll reply within 24 hours. 💌');
+  e.target.reset();
+});
 
-        document.getElementById('custom-order-form').addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const customerName = document.getElementById('customer-name').value;
-          const customerPhone = document.getElementById('customer-phone').value;
-          
-          if (!customerName || !customerPhone) {
-            showToast('Please enter your name and phone number');
-            return;
-          }
-          
-          // Simulate submission success
-          await new Promise(resolve => setTimeout(resolve, 500)); 
-          
-          const currentCount = parseInt(document.getElementById('custom-order-count').textContent) || 0;
-          const newCount = currentCount + 1;
+/* Newsletter */
+function subscribeNewsletter(){
+  const email=document.getElementById('nl-email').value.trim();
+  if(!email||!email.includes('@')){showToast('Please enter a valid email address');return;}
+  showToast('Subscribed! 🎉 Welcome to the family.');
+  document.getElementById('nl-email').value='';
+}
+window.subscribeNewsletter=subscribeNewsletter;
 
-          updateCustomOrderCount(newCount);
-          e.target.reset();
-          showToast('Custom order submitted successfully!');
-        });
-      }
+/* ═══════════════════════════════════════════
+   CART
+═══════════════════════════════════════════ */
+let cart=[];
+document.getElementById('cart-fab').addEventListener('click',()=>{
+  showToast(cart.length?`You have ${cart.length} item(s) in cart 🛒`:'Your cart is empty.');
+});
 
-      function updateCustomOrderCount(count) {
-          document.getElementById('custom-order-count').textContent = count;
-      }
+/* ═══════════════════════════════════════════
+   REAL-TIME SYNC WATCHER
+   Listens for admin dashboard changes via
+   storage event + periodic polling
+═══════════════════════════════════════════ */
+let _lastSync=lsGet('last_sync')||0;
 
-      // --- CONTACT FORM (Now simulated) ---
-      function initContactForm() {
-        document.getElementById('contact-form').addEventListener('submit', async (e) => {
-          e.preventDefault();
-          
-          // Simulate submission success
-          await new Promise(resolve => setTimeout(resolve, 500)); 
-          
-          showToast('Message sent successfully!');
-          e.target.reset();
-        });
-      }
+function checkForAdminUpdates(){
+  const newSync=lsGet('last_sync')||0;
+  if(newSync>_lastSync){
+    _lastSync=newSync;
+    reloadAll();
+  }
+}
 
-      // --- WORKING FILTERS ---
-      function initFilters() {
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        filterButtons.forEach(button => {
-          button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            const filter = button.getAttribute('data-filter');
-            if (filter === 'all') {
-              renderProducts(allProducts);
-            } else {
-              const filtered = allProducts.filter(p => p.category === filter);
-              renderProducts(filtered);
-            }
-          });
-        });
-      }
-      
-      // --- WORKING "VIEW DETAILS" ---
-      function initViewDetails() {
-        const modal = document.getElementById('info-modal');
-        const modalTitle = document.getElementById('info-modal-title');
-        const modalImage = document.getElementById('info-modal-image');
-        const modalDetails = document.getElementById('info-modal-details');
-        document.addEventListener('click', function(e) {
-            const viewBtn = e.target.closest('.view-details-btn, .view-product-btn');
-            if (!viewBtn) return;
-            
-            if (viewBtn.classList.contains('view-product-btn')) {
-                const product = JSON.parse(viewBtn.getAttribute('data-product'));
-                modalTitle.textContent = product.name;
-                modalImage.src = product.imageUrl;
-                modalDetails.innerHTML = `
-                  <p>${product.description}</p>
-                  <p> <span class="info-label">Category:</span> ${product.category} </p>
-                  <p> <span class="info-label">Price:</span> <span style="font-weight: 700; color: var(--primary-color);">₹ ${product.price}</span> </p>
-                  ${product.badge ? `<p> <span class="info-label">Badge:</span> ${product.badge} </p>` : ''}
-                `;
-            } else {
-                modalTitle.textContent = viewBtn.getAttribute('data-title') || "Order Details";
-                modalImage.src = viewBtn.getAttribute('data-image') || "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80";
-                const details = JSON.parse(viewBtn.getAttribute('data-details'));
-                let detailsHtml = '';
-                for (const key in details) {
-                    detailsHtml += `<p> <span class="info-label">${key}:</span> <span>${details[key]}</span> </p>`;
-                }
-                modalDetails.innerHTML = detailsHtml;
-            }
-            modal.style.display = 'flex';
-        });
-      }
-      
-      // --- UTILITY FUNCTIONS ---
-      function updateCartCount() {
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        document.querySelector('.cart-count').textContent = totalItems;
-      }
-      function showToast(message) {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.style.display = 'block';
-        setTimeout(() => { toast.style.display = 'none'; }, 3000);
-      }
-    });
-  </script>
+function reloadAll(){
+  // Show sync banner briefly
+  const banner=document.getElementById('sync-banner');
+  banner.classList.add('show');
+  setTimeout(()=>banner.classList.remove('show'),2000);
+  // Reapply everything from fresh admin data
+  applySettings();
+  buildSlider();
+  buildShop();
+  renderProductGrid(DB.products().filter(p=>p.badge).slice(0,3),'featured-grid');
+  const cntEl=document.getElementById('custom-order-count');
+  if(cntEl)cntEl.textContent=DB.custom().length;
+}
+
+// Listen for same-tab storage changes (when admin and frontend open together)
+window.addEventListener('storage',e=>{
+  if(e.key&&e.key.startsWith('hmc_'))checkForAdminUpdates();
+});
+
+// Poll every 3 seconds for cross-tab sync
+setInterval(checkForAdminUpdates,3000);
+
+/* ═══════════════════════════════════════════
+   FEATURED PRODUCTS — homepage
+═══════════════════════════════════════════ */
+function renderFeatured(){
+  const prods=DB.products();
+  // Show badged products first, then fill up to 3
+  const badged=prods.filter(p=>p.badge);
+  const rest=prods.filter(p=>!p.badge);
+  const featured=[...badged,...rest].slice(0,3);
+  renderProductGrid(featured,'featured-grid');
+}
+
+/* ═══════════════════════════════════════════
+   BOOT — everything loads from admin backend
+═══════════════════════════════════════════ */
+(function init(){
+  seedDefaults();       // seed only if no admin data exists
+  applySettings();      // apply all site settings from admin
+  buildSlider();        // build hero from admin hero data
+  buildShop();          // build shop filter + grid from admin products
+  renderFeatured();     // featured products on homepage
+  // Set custom order count from real data
+  const cntEl=document.getElementById('custom-order-count');
+  if(cntEl)cntEl.textContent=DB.custom().length;
+  navTo('home');        // show home page
+})();
+</script>
 </body>
 </html>
